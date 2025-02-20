@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testlar - Ma'lumotlar Tuzilmasi</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/tests.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <i class="fas fa-database"></i>
+            <span>Ma'lumotlar Tuzilmasi</span>
+        </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html"><i class="fas fa-home"></i> Asosiy</a></li>
+            <li><a href="lectures.html"><i class="fas fa-book"></i> Maruzalar</a></li>
+            <li><a href="tests.html" class="active"><i class="fas fa-tasks"></i> Testlar</a></li>
+            <li><a href="laboratory.html"><i class="fas fa-flask"></i> Laboratoriya</a></li>
+        </ul>
+    </nav>
+    <br>
+    <main class="tests-container">
+        <h1 class="page-title">Bilimingizni tekshiring</h1>
+        
+        <div class="tests-grid">
+            <!-- Test 1 -->
+            <div class="test-card" data-test="1">
+                <div class="test-icon">
+                    <i class="fas fa-sitemap"></i>
+                </div>
+                <div class="test-info">
+                    <h3>Ma'lumotlar tuzilmasi asoslari</h3>
+                    <p>10 ta test savoli</p>
+                    <div class="test-stats">
+                        <span class="time"><i class="far fa-clock"></i> 15 daqiqa</span>
+                        <span class="difficulty"><i class="fas fa-star"></i> Oson</span>
+                    </div>
+                </div>
+                <button class="start-test" onclick="startTest(1)">
+                    Testni boshlash <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <!-- Test 2 -->
+            <div class="test-card" data-test="2">
+                <div class="test-icon">
+                    <i class="fas fa-list-ol"></i>
+                </div>
+                <div class="test-info">
+                    <h3>Massivlar va Ro'yxatlar</h3>
+                    <p>10 ta test savoli</p>
+                    <div class="test-stats">
+                        <span class="time"><i class="far fa-clock"></i> 15 daqiqa</span>
+                        <span class="difficulty"><i class="fas fa-star"></i><i class="fas fa-star"></i> O'rta</span>
+                    </div>
+                </div>
+                <button class="start-test" onclick="startTest(2)">
+                    Testni boshlash <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <!-- Test 3 -->
+            <div class="test-card" data-test="3">
+                <div class="test-icon">
+                    <i class="fas fa-tree"></i>
+                </div>
+                <div class="test-info">
+                    <h3>Daraxtlar va Graflar</h3>
+                    <p>10 ta test savoli</p>
+                    <div class="test-stats">
+                        <span class="time"><i class="far fa-clock"></i> 20 daqiqa</span>
+                        <span class="difficulty"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> Qiyin</span>
+                    </div>
+                </div>
+                <button class="start-test" onclick="startTest(3)">
+                    Testni boshlash <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <!-- Test 4 -->
+            <div class="test-card" data-test="4">
+                <div class="test-icon">
+                    <i class="fas fa-sort-amount-down"></i>
+                </div>
+                <div class="test-info">
+                    <h3>Saralash Algoritmlari</h3>
+                    <p>10 ta test savoli</p>
+                    <div class="test-stats">
+                        <span class="time"><i class="far fa-clock"></i> 15 daqiqa</span>
+                        <span class="difficulty"><i class="fas fa-star"></i><i class="fas fa-star"></i> O'rta</span>
+                    </div>
+                </div>
+                <button class="start-test" onclick="startTest(4)">
+                    Testni boshlash <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <!-- Test 5 -->
+            <div class="test-card" data-test="5">
+                <div class="test-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="test-info">
+                    <h3>Qidirish Algoritmlari</h3>
+                    <p>10 ta test savoli</p>
+                    <div class="test-stats">
+                        <span class="time"><i class="far fa-clock"></i> 15 daqiqa</span>
+                        <span class="difficulty"><i class="fas fa-star"></i><i class="fas fa-star"></i> O'rta</span>
+                    </div>
+                </div>
+                <button class="start-test" onclick="startTest(5)">
+                    Testni boshlash <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <!-- Test 6 -->
+            <div class="test-card" data-test="6">
+                <div class="test-icon">
+                    <i class="fas fa-project-diagram"></i>
+                </div>
+                <div class="test-info">
+                    <h3>Ma'lumotlar Optimizatsiyasi</h3>
+                    <p>10 ta test savoli</p>
+                    <div class="test-stats">
+                        <span class="time"><i class="far fa-clock"></i> 20 daqiqa</span>
+                        <span class="difficulty"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> Qiyin</span>
+                    </div>
+                </div>
+                <button class="start-test" onclick="startTest(6)">
+                    Testni boshlash <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Test Modal -->
+        <div id="testModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="testTitle"></h2>
+                    <div class="test-progress">
+                        <div class="progress-text">
+                            <span id="currentQuestion">1</span>/<span id="totalQuestions">10</span>
+                        </div>
+                        <div class="timer">
+                            <i class="fas fa-clock"></i>
+                            <span id="timeLeft"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question-container">
+                    <p id="questionText"></p>
+                    <div id="answerOptions" class="answer-options">
+                        <!-- Options will be added dynamically -->
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button id="prevQuestion" class="nav-btn" disabled>
+                        <i class="fas fa-chevron-left"></i> Oldingi
+                    </button>
+                    <button id="nextQuestion" class="nav-btn">
+                        Keyingi <i class="fas fa-chevron-right"></i>
+                    </button>
+                    <button id="submitTest" class="submit-btn" style="display: none;">
+                        Testni yakunlash
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Modal -->
+        <div id="resultsModal" class="modal">
+            <div class="modal-content results-content">
+                <h2>Test Natijalari</h2>
+                <div class="results-summary">
+                    <div class="score-circle">
+                        <span id="scorePercentage">0%</span>
+                    </div>
+                    <div class="score-details">
+                        <p>To'g'ri javoblar: <span id="correctAnswers">0</span>/10</p>
+                        <p>Sarflangan vaqt: <span id="timeSpent">0:00</span></p>
+                    </div>
+                </div>
+                <div class="results-actions">
+                    <button onclick="reviewAnswers()" class="review-btn">
+                        <i class="fas fa-search"></i> Javoblarni ko'rish
+                    </button>
+                    <button onclick="closeResults()" class="close-btn">
+                        <i class="fas fa-times"></i> Yopish
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/tests.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
