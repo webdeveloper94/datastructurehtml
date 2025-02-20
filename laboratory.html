@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratoriya - Ma'lumotlar Tuzilmasi</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/laboratory.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <i class="fas fa-database"></i>
+            <span>Ma'lumotlar Tuzilmasi</span>
+        </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html"><i class="fas fa-home"></i> Asosiy</a></li>
+            <li><a href="lectures.html"><i class="fas fa-book"></i> Maruzalar</a></li>
+            <li><a href="tests.html"><i class="fas fa-tasks"></i> Testlar</a></li>
+            <li><a href="laboratory.html" class="active"><i class="fas fa-flask"></i> Laboratoriya</a></li>
+        </ul>
+    </nav>
+
+    <main class="laboratory-container">
+        <h1 class="page-title">Interaktiv Laboratoriya</h1>
+        
+        <div class="lab-categories">
+            <!-- Array Animation -->
+            <div class="lab-card" data-type="array">
+                <div class="lab-preview">
+                    <canvas class="animation-canvas" id="arrayCanvas"></canvas>
+                </div>
+                <div class="lab-info">
+                    <h3>Massivlar</h3>
+                    <p>Massivlar bilan ishlash, qo'shish, o'chirish va saralash animatsiyalari</p>
+                    <div class="lab-controls">
+                        <button class="start-animation" onclick="startArrayAnimation()">
+                            <i class="fas fa-play"></i> Boshlash
+                        </button>
+                        <div class="animation-speed">
+                            <label>Tezlik:</label>
+                            <input type="range" min="1" max="5" value="3" class="speed-slider">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Linked List Animation -->
+            <div class="lab-card" data-type="linkedlist">
+                <div class="lab-preview">
+                    <canvas class="animation-canvas" id="linkedListCanvas"></canvas>
+                </div>
+                <div class="lab-info">
+                    <h3>Bog'langan Ro'yxatlar</h3>
+                    <p>Bog'langan ro'yxatlar bilan ishlash va ularning vizualizatsiyasi</p>
+                    <div class="lab-controls">
+                        <button class="start-animation" onclick="startLinkedListAnimation()">
+                            <i class="fas fa-play"></i> Boshlash
+                        </button>
+                        <div class="animation-speed">
+                            <label>Tezlik:</label>
+                            <input type="range" min="1" max="5" value="3" class="speed-slider">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tree Animation -->
+            <div class="lab-card" data-type="tree">
+                <div class="lab-preview">
+                    <canvas class="animation-canvas" id="treeCanvas"></canvas>
+                </div>
+                <div class="lab-info">
+                    <h3>Daraxtlar</h3>
+                    <p>Binary daraxtlar va ular ustida amallar</p>
+                    <div class="lab-controls">
+                        <button class="start-animation" onclick="startTreeAnimation()">
+                            <i class="fas fa-play"></i> Boshlash
+                        </button>
+                        <div class="animation-speed">
+                            <label>Tezlik:</label>
+                            <input type="range" min="1" max="5" value="3" class="speed-slider">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Graph Animation -->
+            <div class="lab-card" data-type="graph">
+                <div class="lab-preview">
+                    <canvas class="animation-canvas" id="graphCanvas"></canvas>
+                </div>
+                <div class="lab-info">
+                    <h3>Graflar</h3>
+                    <p>Graf algoritmlari va ularning vizualizatsiyasi</p>
+                    <div class="lab-controls">
+                        <button class="start-animation" onclick="startGraphAnimation()">
+                            <i class="fas fa-play"></i> Boshlash
+                        </button>
+                        <div class="animation-speed">
+                            <label>Tezlik:</label>
+                            <input type="range" min="1" max="5" value="3" class="speed-slider">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sorting Animation -->
+            <div class="lab-card" data-type="sorting">
+                <div class="lab-preview">
+                    <canvas class="animation-canvas" id="sortingCanvas"></canvas>
+                </div>
+                <div class="lab-info">
+                    <h3>Saralash Algoritmlari</h3>
+                    <p>Turli xil saralash algoritmlarining vizual namoyishi</p>
+                    <div class="lab-controls">
+                        <button class="start-animation" onclick="startSortingAnimation()">
+                            <i class="fas fa-play"></i> Boshlash
+                        </button>
+                        <div class="animation-speed">
+                            <label>Tezlik:</label>
+                            <input type="range" min="1" max="5" value="3" class="speed-slider">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search Animation -->
+            <div class="lab-card" data-type="search">
+                <div class="lab-preview">
+                    <canvas class="animation-canvas" id="searchCanvas"></canvas>
+                </div>
+                <div class="lab-info">
+                    <h3>Qidirish Algoritmlari</h3>
+                    <p>Binary va chiziqli qidirish algoritmlarining vizualizatsiyasi</p>
+                    <div class="lab-controls">
+                        <button class="start-animation" onclick="startSearchAnimation()">
+                            <i class="fas fa-play"></i> Boshlash
+                        </button>
+                        <div class="animation-speed">
+                            <label>Tezlik:</label>
+                            <input type="range" min="1" max="5" value="3" class="speed-slider">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/laboratory.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

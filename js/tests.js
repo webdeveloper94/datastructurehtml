@@ -21,6 +21,86 @@ const testQuestions = {
             ],
             correct: 1
         },
+        {
+            question: "Stack (Stek) qanday tuzilma?",
+            options: [
+                "LIFO (Last In, First Out) tuzilmasi",
+                "FIFO (First In, First Out) tuzilmasi",
+                "Ikki tomonlama tuzilma",
+                "Massivga o'xshash tuzilma"
+            ],
+            correct: 0
+        },
+        {
+            question: "Queue (Navbat) qanday tuzilma?",
+            options: [
+                "LIFO (Last In, First Out) tuzilmasi",
+                "FIFO (First In, First Out) tuzilmasi",
+                "Ikki tomonlama tuzilma",
+                "Massivga o'xshash tuzilma"
+            ],
+            correct: 1
+        },
+        {
+            question: "Array (Massiv) qanday ma'lumotlar tuzilmasi?",
+            options: [
+                "O'zgaruvchilar ketma-ketligi",
+                "Bir xil turdagi elementlar to'plami",
+                "O'zgaruvchilarning tartiblangan ro'yxati",
+                "Fayl tizimi"
+            ],
+            correct: 1
+        },
+        {
+            question: "Linked List (Bog'lanishli ro'yxat) nima?",
+            options: [
+                "Elementlar o'zaro bog'langan, tartiblangan ma'lumotlar tuzilmasi",
+                "Fayllar ro'yxati",
+                "Bir xil turdagi elementlar to'plami",
+                "Massivga o'xshash tuzilma"
+            ],
+            correct: 0
+        },
+        {
+            question: "Doubly Linked List (Ikki tomonlama bog'lanishli ro'yxat) qanday ishlaydi?",
+            options: [
+                "Har bir element oldingi va keyingi elementga bog'lanadi",
+                "Faqat oldingi elementga bog'lanadi",
+                "Faqat keyingi elementga bog'lanadi",
+                "Elementlar hech qanday bog'lanishga ega emas"
+            ],
+            correct: 0
+        },
+        {
+            question: "Binary Tree (Ikki yonalgan daraxt) nima?",
+            options: [
+                "Har bir tugunning ikkita bolasi bo'lishi mumkin bo'lgan daraxt tuzilmasi",
+                "Har bir tugun faqat bitta bolaga ega bo'lishi kerak",
+                "Fuqaro ro'yxati",
+                "Bir xil turdagi ma'lumotlar tuzilmasi"
+            ],
+            correct: 0
+        },
+        {
+            question: "Hash Table (Hash jadvali) nima?",
+            options: [
+                "Ma'lumotlarni kalit va qiymat juftliklari tarzida saqlash tuzilmasi",
+                "Tartiblangan ro'yxat",
+                "Birinchi va oxirgi elementlarni ko'rsatadigan ro'yxat",
+                "Massivga o'xshash tuzilma"
+            ],
+            correct: 0
+        },
+        {
+            question: "Ma'lumotlar tuzilmasini tanlashda nimani hisobga olish kerak?",
+            options: [
+                "Ma'lumotlarni qanday saqlash va ishlov berish osonligini",
+                "Tuzilmaning xotira sig'imi va ishlash tezligini",
+                "Tuzilmaning kengaytirish imkoniyatlarini",
+                "Barcha javoblar to'g'ri"
+            ],
+            correct: 3
+        }
         // Qolgan savollar shu formatda qo'shiladi
     ],
     2: [ // Massivlar va Ro'yxatlar
@@ -203,7 +283,7 @@ function submitTest() {
 // Javoblarni ko'rish
 function reviewAnswers() {
     // Bu funksiya keyinchalik qo'shiladi
-    alert('Bu funksiya tez orada qo'shiladi!');
+    alert('Bu funksiya tez orada qo\'shiladi!');
 }
 
 // Natijalar oynasini yopish
