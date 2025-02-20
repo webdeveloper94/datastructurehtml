@@ -37,6 +37,25 @@
             <div class="lab-card" data-type="array">
                 <div class="lab-preview">
                     <canvas class="animation-canvas" id="arrayCanvas"></canvas>
+                    <div class="animation-controls">
+                        <button class="control-btn" onclick="addElement()">
+                            <i class="fas fa-plus"></i> Element qo'shish
+                        </button>
+                        <button class="control-btn" onclick="removeElement()">
+                            <i class="fas fa-minus"></i> Element o'chirish
+                        </button>
+                        <button class="control-btn" onclick="searchElement()">
+                            <i class="fas fa-search"></i> Qidirish
+                        </button>
+                    </div>
+                    <div class="explanation">
+                        <p>Massiv - bu bir xil turdagi elementlarning ketma-ket joylashuvi.</p>
+                        <ul>
+                            <li>Yashil kub - oddiy element</li>
+                            <li>Ko'k kub - yangi qo'shilgan element</li>
+                            <li>Qizil kub - qidirilayotgan element</li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="lab-info">
                     <h3>Massivlar</h3>
@@ -57,6 +76,25 @@
             <div class="lab-card" data-type="linkedlist">
                 <div class="lab-preview">
                     <canvas class="animation-canvas" id="linkedListCanvas"></canvas>
+                    <div class="animation-controls">
+                        <button class="control-btn" onclick="addNode()">
+                            <i class="fas fa-plus"></i> Tugun qo'shish
+                        </button>
+                        <button class="control-btn" onclick="removeNode()">
+                            <i class="fas fa-minus"></i> Tugun o'chirish
+                        </button>
+                        <button class="control-btn" onclick="insertNode()">
+                            <i class="fas fa-arrow-right"></i> Tugun kiritish
+                        </button>
+                    </div>
+                    <div class="explanation">
+                        <p>Bog'langan ro'yxat - har bir element keyingi elementga bog'langan struktura.</p>
+                        <ul>
+                            <li>Yashil sfera - tugun</li>
+                            <li>Oq chiziq - bog'lanish</li>
+                            <li>Ko'k sfera - yangi tugun</li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="lab-info">
                     <h3>Bog'langan Ro'yxatlar</h3>
@@ -77,6 +115,26 @@
             <div class="lab-card" data-type="tree">
                 <div class="lab-preview">
                     <canvas class="animation-canvas" id="treeCanvas"></canvas>
+                    <div class="animation-controls">
+                        <button class="control-btn" onclick="addTreeNode()">
+                            <i class="fas fa-plus"></i> Tugun qo'shish
+                        </button>
+                        <button class="control-btn" onclick="removeTreeNode()">
+                            <i class="fas fa-minus"></i> Tugun o'chirish
+                        </button>
+                        <button class="control-btn" onclick="traverseTree()">
+                            <i class="fas fa-route"></i> Daraxtni aylanish
+                        </button>
+                    </div>
+                    <div class="explanation">
+                        <p>Daraxt - ierarxik ma'lumotlar strukturasi.</p>
+                        <ul>
+                            <li>Yashil sfera - tugun</li>
+                            <li>Oq chiziq - bog'lanish</li>
+                            <li>Sariq sfera - tanlangan tugun</li>
+                            <li>Ko'k chiziq - aylanish yo'li</li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="lab-info">
                     <h3>Daraxtlar</h3>
@@ -97,6 +155,25 @@
             <div class="lab-card" data-type="graph">
                 <div class="lab-preview">
                     <canvas class="animation-canvas" id="graphCanvas"></canvas>
+                    <div class="animation-controls">
+                        <button class="control-btn" onclick="addVertex()">
+                            <i class="fas fa-plus"></i> Vertex qo'shish
+                        </button>
+                        <button class="control-btn" onclick="addEdge()">
+                            <i class="fas fa-link"></i> Qirra qo'shish
+                        </button>
+                        <button class="control-btn" onclick="findPath()">
+                            <i class="fas fa-route"></i> Yo'l topish
+                        </button>
+                    </div>
+                    <div class="explanation">
+                        <p>Graf - tugunlar va ular orasidagi bog'lanishlardan iborat struktura.</p>
+                        <ul>
+                            <li>Yashil sfera - vertex (tugun)</li>
+                            <li>Oq chiziq - qirra (bog'lanish)</li>
+                            <li>Qizil chiziq - topilgan yo'l</li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="lab-info">
                     <h3>Graflar</h3>
@@ -117,6 +194,27 @@
             <div class="lab-card" data-type="sorting">
                 <div class="lab-preview">
                     <canvas class="animation-canvas" id="sortingCanvas"></canvas>
+                    <div class="animation-controls">
+                        <select class="algorithm-select" onchange="changeSortingAlgorithm()">
+                            <option value="bubble">Bubble Sort</option>
+                            <option value="insertion">Insertion Sort</option>
+                            <option value="selection">Selection Sort</option>
+                        </select>
+                        <button class="control-btn" onclick="shuffleArray()">
+                            <i class="fas fa-random"></i> Aralashtirish
+                        </button>
+                        <button class="control-btn" onclick="startSorting()">
+                            <i class="fas fa-play"></i> Saralash
+                        </button>
+                    </div>
+                    <div class="explanation">
+                        <p>Saralash - elementlarni tartibga keltirish jarayoni.</p>
+                        <ul>
+                            <li>Yashil ustun - oddiy element</li>
+                            <li>Sariq ustun - taqqoslanayotgan element</li>
+                            <li>Ko'k ustun - to'g'ri joylashgan element</li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="lab-info">
                     <h3>Saralash Algoritmlari</h3>
@@ -137,6 +235,25 @@
             <div class="lab-card" data-type="search">
                 <div class="lab-preview">
                     <canvas class="animation-canvas" id="searchCanvas"></canvas>
+                    <div class="animation-controls">
+                        <input type="number" class="search-input" placeholder="Qidirilayotgan son">
+                        <select class="algorithm-select" onchange="changeSearchAlgorithm()">
+                            <option value="binary">Binary Search</option>
+                            <option value="linear">Linear Search</option>
+                        </select>
+                        <button class="control-btn" onclick="startSearch()">
+                            <i class="fas fa-search"></i> Qidirish
+                        </button>
+                    </div>
+                    <div class="explanation">
+                        <p>Qidirish - berilgan elementni topish jarayoni.</p>
+                        <ul>
+                            <li>Yashil kub - oddiy element</li>
+                            <li>Sariq kub - tekshirilayotgan element</li>
+                            <li>Ko'k kub - qidirilayotgan element</li>
+                            <li>Qizil kub - topilgan element</li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="lab-info">
                     <h3>Qidirish Algoritmlari</h3>
