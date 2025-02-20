@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daraxtlar va Graflar - Ma'ruza</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/lecture-view.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <i class="fas fa-database"></i>
+            <span>Ma'lumotlar Tuzilmasi</span>
+        </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html"><i class="fas fa-home"></i> Asosiy</a></li>
+            <li><a href="lectures.html" class="active"><i class="fas fa-book"></i> Maruzalar</a></li>
+            <li><a href="tests.html"><i class="fas fa-tasks"></i> Testlar</a></li>
+            <li><a href="laboratory.html"><i class="fas fa-flask"></i> Laboratoriya</a></li>
+        </ul>
+    </nav>
+    <br>
+    <div class="lecture-view">
+        <div class="lecture-sidebar">
+            <div class="lecture-progress">
+                <div class="progress-bar" style="width: 0%"></div>
+                <span class="progress-text">0% o'qildi</span>
+            </div>
+            <ul class="lecture-sections">
+                <li class="active"><a href="#intro">Kirish</a></li>
+                <li><a href="#trees">Daraxtlar</a></li>
+                <li><a href="#binary-trees">Ikkilik Daraxtlar</a></li>
+                <li><a href="#graphs">Graflar</a></li>
+                <li><a href="#traversal">Aylanib o'tish</a></li>
+                <li><a href="#practice">Amaliy qism</a></li>
+            </ul>
+        </div>
+        
+        <div class="lecture-content">
+            <nav class="lecture-nav">
+                <a href="lectures.html" class="back-btn"><i class="fas fa-arrow-left"></i> Maruzalar ro'yxatiga qaytish</a>
+                <div class="lecture-controls">
+                    <a href="lecture2.html" class="btn-prev"><i class="fas fa-chevron-left"></i> Oldingi</a>
+                    <a href="lecture4.html" class="btn-next">Keyingi <i class="fas fa-chevron-right"></i></a>
+                </div>
+            </nav>
+
+            <article class="lecture-article">
+                <h1>Daraxtlar va Graflar</h1>
+                
+                <section id="intro" class="lecture-section">
+                    <h2>Kirish</h2>
+                    <p>Daraxtlar va graflar - iyerarxik va tarmoqlangan ma'lumotlarni saqlash uchun mo'ljallangan murakkab ma'lumotlar tuzilmalari.</p>
+                    <div class="info-box">
+                        <i class="fas fa-lightbulb"></i>
+                        <p>Bu tuzilmalar fayl tizimlari, tashkiliy tuzilmalar va ijtimoiy tarmoqlarni modellashtirish uchun juda qulay.</p>
+                    </div>
+                </section>
+
+                <section id="trees" class="lecture-section">
+                    <h2>Daraxtlar</h2>
+                    <p>Daraxt - bu ierarxik ma'lumotlar tuzilmasi bo'lib, tugunlar va ularni bog'lovchi yo'llardan iborat.</p>
+                    <div class="code-example">
+                        <h4>Daraxt tugunini yaratish:</h4>
+                        <pre><code class="language-python">
+class TreeNode:
+    def __init__(self, data):
+        self.data = data
+        self.children = []
+        
+    def add_child(self, child):
+        self.children.append(child)
+        
+# Daraxt yaratish
+root = TreeNode("Bosh direktor")
+hr = TreeNode("HR bo'limi")
+it = TreeNode("IT bo'limi")
+root.add_child(hr)
+root.add_child(it)
+                        </code></pre>
+                    </div>
+                </section>
+
+                <section id="binary-trees" class="lecture-section">
+                    <h2>Ikkilik Daraxtlar</h2>
+                    <p>Ikkilik daraxt - har bir tugunda maksimal ikkita bola bo'lishi mumkin bo'lgan maxsus daraxt turi.</p>
+                    <div class="code-example">
+                        <h4>Ikkilik daraxt klassi:</h4>
+                        <pre><code class="language-python">
+class BinaryTreeNode:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+    def insert(self, data):
+        if self.data > data:
+            if self.left is None:
+                self.left = BinaryTreeNode(data)
+            else:
+                self.left.insert(data)
+        else:
+            if self.right is None:
+                self.right = BinaryTreeNode(data)
+            else:
+                self.right.insert(data)
+                        </code></pre>
+                    </div>
+                </section>
+
+                <section id="graphs" class="lecture-section">
+                    <h2>Graflar</h2>
+                    <p>Graf - bu tugunlar (vertices) va qirralar (edges) to'plami. Graflar yo'naltirilgan yoki yo'naltirilmagan bo'lishi mumkin.</p>
+                    <div class="code-example">
+                        <h4>Graf yaratish:</h4>
+                        <pre><code class="language-python">
+class Graph:
+    def __init__(self):
+        self.vertices = {}
+        
+    def add_vertex(self, vertex):
+        if vertex not in self.vertices:
+            self.vertices[vertex] = []
+            
+    def add_edge(self, vertex1, vertex2):
+        if vertex1 in self.vertices and vertex2 in self.vertices:
+            self.vertices[vertex1].append(vertex2)
+            self.vertices[vertex2].append(vertex1)  # Yo'naltirilmagan graf uchun
+                        </code></pre>
+                    </div>
+                </section>
+
+                <section id="traversal" class="lecture-section">
+                    <h2>Aylanib o'tish</h2>
+                    <div class="info-box">
+                        <i class="fas fa-info-circle"></i>
+                        <p>Daraxt va graflarda ma'lumotlarni aylanib o'tishning turli usullari mavjud.</p>
+                    </div>
+                    <div class="traversal-types">
+                        <h3>Daraxt aylanib o'tish usullari:</h3>
+                        <ul>
+                            <li>Pre-order (Oldin-tartib)</li>
+                            <li>In-order (Ichki-tartib)</li>
+                            <li>Post-order (Keyin-tartib)</li>
+                        </ul>
+                        <h3>Graf aylanib o'tish usullari:</h3>
+                        <ul>
+                            <li>Breadth-First Search (BFS)</li>
+                            <li>Depth-First Search (DFS)</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section id="practice" class="lecture-section">
+                    <h2>Amaliy qism</h2>
+                    <div class="practice-exercise">
+                        <h3>Mashq #1</h3>
+                        <p>Ikkilik daraxtda elementni qidirish funksiyasini yozing:</p>
+                        <div class="code-example">
+                            <pre><code class="language-python">
+def search_binary_tree(root, target):
+    # Sizning kodingiz
+    pass
+
+# Test
+root = BinaryTreeNode(10)
+root.insert(5)
+root.insert(15)
+result = search_binary_tree(root, 5)
+print(result)  # True chiqishi kerak
+                            </code></pre>
+                        </div>
+                        <button class="btn-check">Tekshirish</button>
+                    </div>
+                </section>
+            </article>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/lecture-view.js"></script>
+</body>
+</html>

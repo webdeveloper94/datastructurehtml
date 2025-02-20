@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qidirish Algoritmlari - Ma'ruza</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/lecture-view.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <i class="fas fa-database"></i>
+            <span>Ma'lumotlar Tuzilmasi</span>
+        </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html"><i class="fas fa-home"></i> Asosiy</a></li>
+            <li><a href="lectures.html" class="active"><i class="fas fa-book"></i> Maruzalar</a></li>
+            <li><a href="tests.html"><i class="fas fa-tasks"></i> Testlar</a></li>
+            <li><a href="laboratory.html"><i class="fas fa-flask"></i> Laboratoriya</a></li>
+        </ul>
+    </nav>
+    <br>
+    <div class="lecture-view">
+        <div class="lecture-sidebar">
+            <div class="lecture-progress">
+                <div class="progress-bar" style="width: 0%"></div>
+                <span class="progress-text">0% o'qildi</span>
+            </div>
+            <ul class="lecture-sections">
+                <li class="active"><a href="#intro">Kirish</a></li>
+                <li><a href="#linear-search">Chiziqli Qidirish</a></li>
+                <li><a href="#binary-search">Ikkilik Qidirish</a></li>
+                <li><a href="#hash-tables">Hash-jadvallar</a></li>
+                <li><a href="#comparison">Taqqoslash</a></li>
+                <li><a href="#practice">Amaliy qism</a></li>
+            </ul>
+        </div>
+        
+        <div class="lecture-content">
+            <nav class="lecture-nav">
+                <a href="lectures.html" class="back-btn"><i class="fas fa-arrow-left"></i> Maruzalar ro'yxatiga qaytish</a>
+                <div class="lecture-controls">
+                    <a href="lecture4.html" class="btn-prev"><i class="fas fa-chevron-left"></i> Oldingi</a>
+                    <a href="lecture6.html" class="btn-next">Keyingi <i class="fas fa-chevron-right"></i></a>
+                </div>
+            </nav>
+
+            <article class="lecture-article">
+                <h1>Qidirish Algoritmlari</h1>
+                
+                <section id="intro" class="lecture-section">
+                    <h2>Kirish</h2>
+                    <p>Qidirish algoritmlari - ma'lumotlar tuzilmasidan kerakli elementni topish uchun ishlatiladigan usullar.</p>
+                    <div class="info-box">
+                        <i class="fas fa-lightbulb"></i>
+                        <p>Samarali qidirish algoritmlari dastur tezligiga katta ta'sir ko'rsatadi.</p>
+                    </div>
+                </section>
+
+                <section id="linear-search" class="lecture-section">
+                    <h2>Chiziqli Qidirish</h2>
+                    <p>Chiziqli qidirish - eng oddiy qidirish usuli bo'lib, har bir elementni ketma-ket tekshirish orqali ishlaydi.</p>
+                    <div class="code-example">
+                        <h4>Chiziqli qidirish algoritmi:</h4>
+                        <pre><code class="language-python">
+def linear_search(arr, target):
+    for i in range(len(arr)):
+        if arr[i] == target:
+            return i  # Element topildi
+    return -1  # Element topilmadi
+
+# Test
+numbers = [4, 2, 7, 1, 9, 3]
+index = linear_search(numbers, 7)
+print(f"7 soni {index}-indexda joylashgan")
+                        </code></pre>
+                    </div>
+                </section>
+
+                <section id="binary-search" class="lecture-section">
+                    <h2>Ikkilik Qidirish</h2>
+                    <p>Ikkilik qidirish - saralangan massivda ishlatiladigan samarali qidirish usuli.</p>
+                    <div class="code-example">
+                        <h4>Ikkilik qidirish algoritmi:</h4>
+                        <pre><code class="language-python">
+def binary_search(arr, target):
+    left = 0
+    right = len(arr) - 1
+    
+    while left <= right:
+        mid = (left + right) // 2
+        if arr[mid] == target:
+            return mid
+        elif arr[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+            
+    return -1
+
+# Test
+sorted_numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+index = binary_search(sorted_numbers, 7)
+print(f"7 soni {index}-indexda joylashgan")
+                        </code></pre>
+                    </div>
+                </section>
+
+                <section id="hash-tables" class="lecture-section">
+                    <h2>Hash-jadvallar</h2>
+                    <p>Hash-jadvallar - ma'lumotlarni kalit-qiymat juftligi ko'rinishida saqlash va tez qidirish imkonini beradi.</p>
+                    <div class="code-example">
+                        <h4>Hash-jadval yaratish:</h4>
+                        <pre><code class="language-python">
+class HashTable:
+    def __init__(self, size=10):
+        self.size = size
+        self.table = [[] for _ in range(size)]
+    
+    def _hash(self, key):
+        return hash(key) % self.size
+    
+    def insert(self, key, value):
+        hash_key = self._hash(key)
+        for item in self.table[hash_key]:
+            if item[0] == key:
+                item[1] = value
+                return
+        self.table[hash_key].append([key, value])
+    
+    def get(self, key):
+        hash_key = self._hash(key)
+        for item in self.table[hash_key]:
+            if item[0] == key:
+                return item[1]
+        return None
+
+# Test
+hash_table = HashTable()
+hash_table.insert("apple", 5)
+hash_table.insert("banana", 8)
+print(hash_table.get("apple"))  # 5 chiqadi
+                        </code></pre>
+                    </div>
+                </section>
+
+                <section id="comparison" class="lecture-section">
+                    <h2>Taqqoslash</h2>
+                    <div class="comparison-table">
+                        <table>
+                            <tr>
+                                <th>Algoritm</th>
+                                <th>Vaqt murakkabligi</th>
+                                <th>Xotira</th>
+                                <th>Afzalligi</th>
+                            </tr>
+                            <tr>
+                                <td>Chiziqli qidirish</td>
+                                <td>O(n)</td>
+                                <td>O(1)</td>
+                                <td>Oddiy, saralanmagan massivlar uchun</td>
+                            </tr>
+                            <tr>
+                                <td>Ikkilik qidirish</td>
+                                <td>O(log n)</td>
+                                <td>O(1)</td>
+                                <td>Saralangan massivlar uchun tez</td>
+                            </tr>
+                            <tr>
+                                <td>Hash-jadval</td>
+                                <td>O(1)*</td>
+                                <td>O(n)</td>
+                                <td>Juda tez qidirish</td>
+                            </tr>
+                        </table>
+                    </div>
+                </section>
+
+                <section id="practice" class="lecture-section">
+                    <h2>Amaliy qism</h2>
+                    <div class="practice-exercise">
+                        <h3>Mashq #1</h3>
+                        <p>Rekursiv ikkilik qidirish algoritmini yarating:</p>
+                        <div class="code-example">
+                            <pre><code class="language-python">
+def recursive_binary_search(arr, target, left, right):
+    # Sizning kodingiz
+    pass
+
+# Test
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+result = recursive_binary_search(numbers, 7, 0, len(numbers)-1)
+print(result)  # 6 chiqishi kerak
+                            </code></pre>
+                        </div>
+                        <button class="btn-check">Tekshirish</button>
+                    </div>
+                </section>
+            </article>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/lecture-view.js"></script>
+</body>
+</html>

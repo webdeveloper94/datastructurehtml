@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ma'lumotlar Optimizatsiyasi - Ma'ruza</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/lecture-view.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <i class="fas fa-database"></i>
+            <span>Ma'lumotlar Tuzilmasi</span>
+        </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html"><i class="fas fa-home"></i> Asosiy</a></li>
+            <li><a href="lectures.html" class="active"><i class="fas fa-book"></i> Maruzalar</a></li>
+            <li><a href="tests.html"><i class="fas fa-tasks"></i> Testlar</a></li>
+            <li><a href="laboratory.html"><i class="fas fa-flask"></i> Laboratoriya</a></li>
+        </ul>
+    </nav>
+    <br>
+    <div class="lecture-view">
+        <div class="lecture-sidebar">
+            <div class="lecture-progress">
+                <div class="progress-bar" style="width: 0%"></div>
+                <span class="progress-text">0% o'qildi</span>
+            </div>
+            <ul class="lecture-sections">
+                <li class="active"><a href="#intro">Kirish</a></li>
+                <li><a href="#memory">Xotira optimizatsiyasi</a></li>
+                <li><a href="#time">Vaqt optimizatsiyasi</a></li>
+                <li><a href="#caching">Keshlashtirish</a></li>
+                <li><a href="#best-practices">Eng yaxshi amaliyotlar</a></li>
+                <li><a href="#practice">Amaliy qism</a></li>
+            </ul>
+        </div>
+        
+        <div class="lecture-content">
+            <nav class="lecture-nav">
+                <a href="lectures.html" class="back-btn"><i class="fas fa-arrow-left"></i> Maruzalar ro'yxatiga qaytish</a>
+                <div class="lecture-controls">
+                    <a href="lecture5.html" class="btn-prev"><i class="fas fa-chevron-left"></i> Oldingi</a>
+                    <button class="btn-next" disabled>Keyingi <i class="fas fa-chevron-right"></i></button>
+                </div>
+            </nav>
+
+            <article class="lecture-article">
+                <h1>Ma'lumotlar Optimizatsiyasi</h1>
+                
+                <section id="intro" class="lecture-section">
+                    <h2>Kirish</h2>
+                    <p>Ma'lumotlar optimizatsiyasi - dasturning samaradorligini oshirish uchun ma'lumotlarni saqlash va qayta ishlash usullarini takomillashtirish.</p>
+                    <div class="info-box">
+                        <i class="fas fa-lightbulb"></i>
+                        <p>Optimizatsiya dasturning tezligi va resurs sarfini yaxshilaydi.</p>
+                    </div>
+                </section>
+
+                <section id="memory" class="lecture-section">
+                    <h2>Xotira optimizatsiyasi</h2>
+                    <p>Xotirani samarali ishlatish uchun qo'llaniladigan usullar.</p>
+                    <div class="code-example">
+                        <h4>Generator funksiyalar orqali xotirani tejash:</h4>
+                        <pre><code class="language-python">
+# Oddiy usul (ko'p xotira)
+def get_squares(n):
+    squares = []
+    for i in range(n):
+        squares.append(i * i)
+    return squares
+
+# Generator usuli (kam xotira)
+def get_squares_generator(n):
+    for i in range(n):
+        yield i * i
+
+# Test
+# Oddiy usul
+squares = get_squares(1000000)  # Katta xotira
+
+# Generator usuli
+squares_gen = get_squares_generator(1000000)  # Minimal xotira
+for square in squares_gen:
+    # Har bir element kerak bo'lganda generatsiya qilinadi
+    pass
+                        </code></pre>
+                    </div>
+                </section>
+
+                <section id="time" class="lecture-section">
+                    <h2>Vaqt optimizatsiyasi</h2>
+                    <p>Dastur tezligini oshirish uchun qo'llaniladigan usullar.</p>
+                    <div class="code-example">
+                        <h4>Keshlashtirish orqali tezlikni oshirish:</h4>
+                        <pre><code class="language-python">
+from functools import lru_cache
+
+# Oddiy rekursiv funksiya
+def fibonacci(n):
+    if n < 2:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+
+# Keshlangan rekursiv funksiya
+@lru_cache(maxsize=None)
+def fibonacci_cached(n):
+    if n < 2:
+        return n
+    return fibonacci_cached(n-1) + fibonacci_cached(n-2)
+
+# Test
+# fibonacci(35)  # Sekin ishlaydi
+# fibonacci_cached(35)  # Tez ishlaydi
+                        </code></pre>
+                    </div>
+                </section>
+
+                <section id="caching" class="lecture-section">
+                    <h2>Keshlashtirish</h2>
+                    <p>Ma'lumotlarni vaqtinchalik saqlash orqali dastur tezligini oshirish usullari.</p>
+                    <div class="code-example">
+                        <h4>Oddiy kesh klassi:</h4>
+                        <pre><code class="language-python">
+class SimpleCache:
+    def __init__(self, capacity):
+        self.capacity = capacity
+        self.cache = {}
+        
+    def get(self, key):
+        return self.cache.get(key)
+        
+    def put(self, key, value):
+        if len(self.cache) >= self.capacity:
+            # Eng eski elementni o'chirish
+            self.cache.pop(next(iter(self.cache)))
+        self.cache[key] = value
+
+# Test
+cache = SimpleCache(2)
+cache.put("A", 1)
+cache.put("B", 2)
+cache.put("C", 3)  # A o'chiriladi
+print(cache.get("A"))  # None
+print(cache.get("B"))  # 2
+                        </code></pre>
+                    </div>
+                </section>
+
+                <section id="best-practices" class="lecture-section">
+                    <h2>Eng yaxshi amaliyotlar</h2>
+                    <div class="best-practices">
+                        <ul>
+                            <li>
+                                <strong>Ma'lumotlar tuzilmasini to'g'ri tanlash:</strong>
+                                <p>Vazifaga mos ma'lumotlar tuzilmasini tanlash muhim ahamiyatga ega.</p>
+                            </li>
+                            <li>
+                                <strong>Algoritm murakkabligini hisobga olish:</strong>
+                                <p>Big O notatsiyasini tushunish va qo'llash.</p>
+                            </li>
+                            <li>
+                                <strong>Xotira-tezlik muvozanati:</strong>
+                                <p>Ba'zan ko'proq xotira ishlatib, tezlikni oshirish mumkin.</p>
+                            </li>
+                            <li>
+                                <strong>Keshlashtirish strategiyasi:</strong>
+                                <p>Kesh hajmi va yangilash siyosatini to'g'ri tanlash.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section id="practice" class="lecture-section">
+                    <h2>Amaliy qism</h2>
+                    <div class="practice-exercise">
+                        <h3>Mashq #1</h3>
+                        <p>LRU (Least Recently Used) kesh klassini yarating:</p>
+                        <div class="code-example">
+                            <pre><code class="language-python">
+class LRUCache:
+    def __init__(self, capacity):
+        # Sizning kodingiz
+        pass
+        
+    def get(self, key):
+        # Sizning kodingiz
+        pass
+        
+    def put(self, key, value):
+        # Sizning kodingiz
+        pass
+
+# Test
+cache = LRUCache(2)
+cache.put(1, 1)
+cache.put(2, 2)
+print(cache.get(1))       # 1 qaytarishi kerak
+cache.put(3, 3)          # 2 o'chirilishi kerak
+print(cache.get(2))      # -1 qaytarishi kerak
+                            </code></pre>
+                        </div>
+                        <button class="btn-check">Tekshirish</button>
+                    </div>
+                </section>
+            </article>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/lecture-view.js"></script>
+</body>
+</html>

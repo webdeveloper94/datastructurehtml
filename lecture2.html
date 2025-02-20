@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Massivlar va Ro'yxatlar - Ma'ruza</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/lecture-view.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <!-- Navigation code same as lecture1.html -->
+    </nav>
+    <br>
+    <div class="lecture-view">
+        <div class="lecture-sidebar">
+            <div class="lecture-progress">
+                <div class="progress-bar" style="width: 0%"></div>
+                <span class="progress-text">0% o'qildi</span>
+            </div>
+            <ul class="lecture-sections">
+                <li class="active"><a href="#intro">Kirish</a></li>
+                <li><a href="#arrays">Massivlar</a></li>
+                <li><a href="#lists">Ro'yxatlar</a></li>
+                <li><a href="#comparison">Taqqoslash</a></li>
+                <li><a href="#examples">Misollar</a></li>
+                <li><a href="#practice">Amaliy qism</a></li>
+            </ul>
+        </div>
+        
+        <div class="lecture-content">
+            <nav class="lecture-nav">
+                <a href="lectures.html" class="back-btn"><i class="fas fa-arrow-left"></i> Maruzalar ro'yxatiga qaytish</a>
+                <div class="lecture-controls">
+                    <a href="lecture1.html" class="btn-prev"><i class="fas fa-chevron-left"></i> Oldingi</a>
+                    <a href="lecture3.html" class="btn-next">Keyingi <i class="fas fa-chevron-right"></i></a>
+                </div>
+            </nav>
+
+            <article class="lecture-article">
+                <h1>Massivlar va Ro'yxatlar</h1>
+                
+                <section id="intro" class="lecture-section">
+                    <h2>Kirish</h2>
+                    <p>Massivlar va ro'yxatlar - eng ko'p ishlatiladigan ma'lumotlar tuzilmalari hisoblanadi. Ular ma'lumotlarni ketma-ket saqlash uchun ishlatiladi.</p>
+                </section>
+
+                <section id="arrays" class="lecture-section">
+                    <h2>Massivlar</h2>
+                    <div class="info-box">
+                        <i class="fas fa-info-circle"></i>
+                        <p>Massiv - bu bir xil turdagi ma'lumotlarni ketma-ket xotirada saqlash uchun mo'ljallangan ma'lumotlar tuzilmasi.</p>
+                    </div>
+                    <div class="code-example">
+                        <h4>Massiv yaratish:</h4>
+                        <pre><code class="language-python">
+# Bir o'lchamli massiv
+numbers = [1, 2, 3, 4, 5]
+
+# Ko'p o'lchamli massiv
+matrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+# Massiv elementiga kirish
+print(numbers[0])      # 1-element
+print(matrix[0][1])    # 1-qator, 2-ustun
+                        </code></pre>
+                    </div>
+                </section>
+
+                <section id="lists" class="lecture-section">
+                    <h2>Ro'yxatlar</h2>
+                    <p>Bog'langan ro'yxatlar - har bir element keyingi element manzilini saqlaydigan dinamik ma'lumotlar tuzilmasi.</p>
+                    <div class="code-example">
+                        <h4>Bog'langan ro'yxat klassi:</h4>
+                        <pre><code class="language-python">
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+
+    def append(self, data):
+        if not self.head:
+            self.head = Node(data)
+            return
+        current = self.head
+        while current.next:
+            current = current.next
+        current.next = Node(data)
+                        </code></pre>
+                    </div>
+                </section>
+
+                <section id="comparison" class="lecture-section">
+                    <h2>Taqqoslash</h2>
+                    <div class="comparison-table">
+                        <table>
+                            <tr>
+                                <th>Xususiyat</th>
+                                <th>Massiv</th>
+                                <th>Ro'yxat</th>
+                            </tr>
+                            <tr>
+                                <td>Xotira</td>
+                                <td>Ketma-ket</td>
+                                <td>Tarqoq</td>
+                            </tr>
+                            <tr>
+                                <td>O'lcham</td>
+                                <td>Statik</td>
+                                <td>Dinamik</td>
+                            </tr>
+                            <tr>
+                                <td>Kirish tezligi</td>
+                                <td>O(1)</td>
+                                <td>O(n)</td>
+                            </tr>
+                        </table>
+                    </div>
+                </section>
+
+                <section id="examples" class="lecture-section">
+                    <h2>Misollar</h2>
+                    <div class="interactive-demo">
+                        <div class="demo-controls">
+                            <button class="demo-btn" onclick="runDemo('array')">Massiv</button>
+                            <button class="demo-btn" onclick="runDemo('linkedList')">Ro'yxat</button>
+                        </div>
+                        <div id="demo-container" class="demo-container">
+                            <!-- JavaScript orqali to'ldiriladi -->
+                        </div>
+                    </div>
+                </section>
+
+                <section id="practice" class="lecture-section">
+                    <h2>Amaliy qism</h2>
+                    <div class="practice-exercise">
+                        <h3>Mashq #1</h3>
+                        <p>Massivni teskari tartibda chiqaruvchi funksiya yozing:</p>
+                        <div class="code-example">
+                            <pre><code class="language-python">
+def reverse_array(arr):
+    # Sizning kodingiz
+    pass
+
+# Test
+arr = [1, 2, 3, 4, 5]
+result = reverse_array(arr)
+print(result)  # [5, 4, 3, 2, 1] chiqishi kerak
+                            </code></pre>
+                        </div>
+                        <button class="btn-check">Tekshirish</button>
+                    </div>
+                </section>
+            </article>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/lecture-view.js"></script>
+</body>
+</html>

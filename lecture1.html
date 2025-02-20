@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ma'lumotlar tuzilmasi asoslari - Ma'ruza</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/lecture-view.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <i class="fas fa-database"></i>
+            <span>Ma'lumotlar Tuzilmasi</span>
+        </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html"><i class="fas fa-home"></i> Asosiy</a></li>
+            <li><a href="lectures.html" class="active"><i class="fas fa-book"></i> Maruzalar</a></li>
+            <li><a href="tests.html"><i class="fas fa-tasks"></i> Testlar</a></li>
+            <li><a href="laboratory.html"><i class="fas fa-flask"></i> Laboratoriya</a></li>
+        </ul>
+    </nav>
+    <br>
+    <div class="lecture-view">
+        <div class="lecture-sidebar">
+            <div class="lecture-progress">
+                <div class="progress-bar" style="width: 0%"></div>
+                <span class="progress-text">0% o'qildi</span>
+            </div>
+            <ul class="lecture-sections">
+                <li class="active"><a href="#intro">Kirish</a></li>
+                <li><a href="#definition">Ma'lumotlar tuzilmasi nima?</a></li>
+                <li><a href="#importance">Ahamiyati</a></li>
+                <li><a href="#types">Asosiy turlar</a></li>
+                <li><a href="#examples">Misollar</a></li>
+                <li><a href="#practice">Amaliy qism</a></li>
+            </ul>
+        </div>
+        
+        <div class="lecture-content">
+            <nav class="lecture-nav">
+                <a href="lectures.html" class="back-btn"><i class="fas fa-arrow-left"></i> Maruzalar ro'yxatiga qaytish</a>
+                <div class="lecture-controls">
+                    <button class="btn-prev" disabled><i class="fas fa-chevron-left"></i> Oldingi</button>
+                    <button class="btn-next">Keyingi <i class="fas fa-chevron-right"></i></button>
+                </div>
+            </nav>
+
+            <article class="lecture-article">
+                <h1>Ma'lumotlar tuzilmasi asoslari</h1>
+                
+                <section id="intro" class="lecture-section">
+                    <h2>Kirish</h2>
+                    <p>Ma'lumotlar tuzilmasi - bu kompyuter fanining eng muhim va asosiy mavzularidan biri. Bu kurs davomida siz ma'lumotlarni samarali saqlash va ular ustida amallar bajarish usullarini o'rganasiz.</p>
+                    <div class="info-box">
+                        <i class="fas fa-lightbulb"></i>
+                        <p>Ushbu kurs davomida siz nafaqat nazariy bilimlarni, balki amaliy ko'nikmalarni ham egalaysiz.</p>
+                    </div>
+                </section>
+
+                <section id="definition" class="lecture-section">
+                    <h2>Ma'lumotlar tuzilmasi nima?</h2>
+                    <p>Ma'lumotlar tuzilmasi - bu ma'lumotlarni saqlash va ular ustida amallar bajarish uchun mo'ljallangan maxsus format yoki tashkil etish usuli.</p>
+                    <div class="code-example">
+                        <h4>Oddiy massiv misoli:</h4>
+                        <pre><code class="language-python">
+# Oddiy massiv
+numbers = [1, 2, 3, 4, 5]
+
+# Massiv elementiga kirish
+print(numbers[0])  # 1-elementni chiqarish
+
+# Massivga element qo'shish
+numbers.append(6)
+                        </code></pre>
+                    </div>
+                </section>
+
+                <section id="importance" class="lecture-section">
+                    <h2>Ahamiyati</h2>
+                    <div class="benefits-grid">
+                        <div class="benefit-card">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <h4>Samaradorlik</h4>
+                            <p>Ma'lumotlarni tez va samarali qayta ishlash</p>
+                        </div>
+                        <div class="benefit-card">
+                            <i class="fas fa-memory"></i>
+                            <h4>Xotira tejamkorligi</h4>
+                            <p>Xotirani optimal ishlatish</p>
+                        </div>
+                        <div class="benefit-card">
+                            <i class="fas fa-code"></i>
+                            <h4>Kod sifati</h4>
+                            <p>Toza va tushunarli kod yozish</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="types" class="lecture-section">
+                    <h2>Asosiy turlar</h2>
+                    <div class="types-diagram">
+                        <img src="images/data-structures.svg" alt="Ma'lumotlar tuzilmasi turlari" class="responsive-img">
+                    </div>
+                    <ul class="feature-list">
+                        <li><strong>Chiziqli tuzilmalar:</strong> Massivlar, Ro'yxatlar, Steklar, Navbatlar</li>
+                        <li><strong>Nochiziqli tuzilmalar:</strong> Daraxtlar, Graflar</li>
+                        <li><strong>Dinamik tuzilmalar:</strong> Bog'langan ro'yxatlar, Dinamik massivlar</li>
+                    </ul>
+                </section>
+
+                <section id="examples" class="lecture-section">
+                    <h2>Misollar</h2>
+                    <div class="interactive-demo">
+                        <div class="demo-controls">
+                            <button class="demo-btn" onclick="runDemo('array')">Massiv</button>
+                            <button class="demo-btn" onclick="runDemo('list')">Ro'yxat</button>
+                            <button class="demo-btn" onclick="runDemo('stack')">Stek</button>
+                        </div>
+                        <div id="demo-container" class="demo-container">
+                            <!-- JavaScript orqali to'ldiriladi -->
+                        </div>
+                    </div>
+                </section>
+
+                <section id="practice" class="lecture-section">
+                    <h2>Amaliy qism</h2>
+                    <div class="practice-exercise">
+                        <h3>Mashq #1</h3>
+                        <p>Berilgan massivni teskari tartibda chiqaring:</p>
+                        <div class="code-example">
+                            <pre><code class="language-python">
+def reverse_array(arr):
+    # Sizning kodingiz
+    pass
+
+# Test
+arr = [1, 2, 3, 4, 5]
+result = reverse_array(arr)
+print(result)  # [5, 4, 3, 2, 1] chiqishi kerak
+                            </code></pre>
+                        </div>
+                        <button class="btn-check">Tekshirish</button>
+                    </div>
+                </section>
+            </article>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/lecture-view.js"></script>
+</body>
+</html>

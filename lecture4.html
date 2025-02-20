@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saralash Algoritmlari - Ma'ruza</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/lecture-view.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <i class="fas fa-database"></i>
+            <span>Ma'lumotlar Tuzilmasi</span>
+        </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html"><i class="fas fa-home"></i> Asosiy</a></li>
+            <li><a href="lectures.html" class="active"><i class="fas fa-book"></i> Maruzalar</a></li>
+            <li><a href="tests.html"><i class="fas fa-tasks"></i> Testlar</a></li>
+            <li><a href="laboratory.html"><i class="fas fa-flask"></i> Laboratoriya</a></li>
+        </ul>
+    </nav>
+    <br>
+    <div class="lecture-view">
+        <div class="lecture-sidebar">
+            <div class="lecture-progress">
+                <div class="progress-bar" style="width: 0%"></div>
+                <span class="progress-text">0% o'qildi</span>
+            </div>
+            <ul class="lecture-sections">
+                <li class="active"><a href="#intro">Kirish</a></li>
+                <li><a href="#bubble-sort">Bubble Sort</a></li>
+                <li><a href="#quick-sort">Quick Sort</a></li>
+                <li><a href="#merge-sort">Merge Sort</a></li>
+                <li><a href="#comparison">Taqqoslash</a></li>
+                <li><a href="#practice">Amaliy qism</a></li>
+            </ul>
+        </div>
+        
+        <div class="lecture-content">
+            <nav class="lecture-nav">
+                <a href="lectures.html" class="back-btn"><i class="fas fa-arrow-left"></i> Maruzalar ro'yxatiga qaytish</a>
+                <div class="lecture-controls">
+                    <a href="lecture3.html" class="btn-prev"><i class="fas fa-chevron-left"></i> Oldingi</a>
+                    <a href="lecture5.html" class="btn-next">Keyingi <i class="fas fa-chevron-right"></i></a>
+                </div>
+            </nav>
+
+            <article class="lecture-article">
+                <h1>Saralash Algoritmlari</h1>
+                
+                <section id="intro" class="lecture-section">
+                    <h2>Kirish</h2>
+                    <p>Saralash algoritmlari - ma'lumotlarni tartibga solish uchun ishlatiladigan eng muhim algoritmlardan biri.</p>
+                    <div class="info-box">
+                        <i class="fas fa-lightbulb"></i>
+                        <p>Har bir saralash algoritmining o'z afzalliklari va kamchiliklari mavjud. Ularni to'g'ri tanlash muhim ahamiyatga ega.</p>
+                    </div>
+                </section>
+
+                <section id="bubble-sort" class="lecture-section">
+                    <h2>Bubble Sort</h2>
+                    <p>Bubble Sort - eng oddiy saralash algoritmi bo'lib, qo'shni elementlarni taqqoslash va almashtirish orqali ishlaydi.</p>
+                    <div class="code-example">
+                        <h4>Bubble Sort algoritmi:</h4>
+                        <pre><code class="language-python">
+def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        for j in range(0, n-i-1):
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+    return arr
+
+# Test
+numbers = [64, 34, 25, 12, 22, 11, 90]
+sorted_numbers = bubble_sort(numbers)
+print(sorted_numbers)
+                        </code></pre>
+                    </div>
+                </section>
+
+                <section id="quick-sort" class="lecture-section">
+                    <h2>Quick Sort</h2>
+                    <p>Quick Sort - "bo'lib tashla va hukmronlik qil" prinsipi asosida ishlaydigan samarali algoritm.</p>
+                    <div class="code-example">
+                        <h4>Quick Sort algoritmi:</h4>
+                        <pre><code class="language-python">
+def quick_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    
+    pivot = arr[len(arr) // 2]
+    left = [x for x in arr if x < pivot]
+    middle = [x for x in arr if x == pivot]
+    right = [x for x in arr if x > pivot]
+    
+    return quick_sort(left) + middle + quick_sort(right)
+
+# Test
+numbers = [64, 34, 25, 12, 22, 11, 90]
+sorted_numbers = quick_sort(numbers)
+print(sorted_numbers)
+                        </code></pre>
+                    </div>
+                </section>
+
+                <section id="merge-sort" class="lecture-section">
+                    <h2>Merge Sort</h2>
+                    <p>Merge Sort - massivni bo'lib, saralab, birlashtirish orqali ishlaydigan samarali algoritm.</p>
+                    <div class="code-example">
+                        <h4>Merge Sort algoritmi:</h4>
+                        <pre><code class="language-python">
+def merge_sort(arr):
+    if len(arr) <= 1:
+        return arr
+        
+    mid = len(arr) // 2
+    left = merge_sort(arr[:mid])
+    right = merge_sort(arr[mid:])
+    
+    return merge(left, right)
+
+def merge(left, right):
+    result = []
+    i = j = 0
+    
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+            
+    result.extend(left[i:])
+    result.extend(right[j:])
+    return result
+                        </code></pre>
+                    </div>
+                </section>
+
+                <section id="comparison" class="lecture-section">
+                    <h2>Taqqoslash</h2>
+                    <div class="comparison-table">
+                        <table>
+                            <tr>
+                                <th>Algoritm</th>
+                                <th>Vaqt murakkabligi</th>
+                                <th>Xotira</th>
+                                <th>Barqarorlik</th>
+                            </tr>
+                            <tr>
+                                <td>Bubble Sort</td>
+                                <td>O(n²)</td>
+                                <td>O(1)</td>
+                                <td>Ha</td>
+                            </tr>
+                            <tr>
+                                <td>Quick Sort</td>
+                                <td>O(n log n)</td>
+                                <td>O(log n)</td>
+                                <td>Yo'q</td>
+                            </tr>
+                            <tr>
+                                <td>Merge Sort</td>
+                                <td>O(n log n)</td>
+                                <td>O(n)</td>
+                                <td>Ha</td>
+                            </tr>
+                        </table>
+                    </div>
+                </section>
+
+                <section id="practice" class="lecture-section">
+                    <h2>Amaliy qism</h2>
+                    <div class="practice-exercise">
+                        <h3>Mashq #1</h3>
+                        <p>Selection Sort algoritmini yarating:</p>
+                        <div class="code-example">
+                            <pre><code class="language-python">
+def selection_sort(arr):
+    # Sizning kodingiz
+    pass
+
+# Test
+numbers = [64, 34, 25, 12, 22, 11, 90]
+sorted_numbers = selection_sort(numbers)
+print(sorted_numbers)
+                            </code></pre>
+                        </div>
+                        <button class="btn-check">Tekshirish</button>
+                    </div>
+                </section>
+            </article>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/lecture-view.js"></script>
+</body>
+</html>
