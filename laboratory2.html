@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interaktiv Laboratoriya - Ma'lumotlar Tuzilmasi</title>
+    <link rel="stylesheet" href="css/laboratory2.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <i class="fas fa-database"></i>
+            <span>Ma'lumotlar Tuzilmasi</span>
+        </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html"><i class="fas fa-home"></i> Asosiy</a></li>
+            <li><a href="lectures.html"><i class="fas fa-book"></i> Maruzalar</a></li>
+            <li><a href="tests.html" class="active"><i class="fas fa-tasks"></i> Testlar</a></li>
+            <li><a href="laboratory2.html"><i class="fas fa-flask"></i> Laboratoriya</a></li>
+        </ul>
+    </nav>
+<br> <br>
+    <div class="lab-container">
+        <!-- Chap panel - Tuzilmalar ro'yxati -->
+        <div class="structures-panel">
+            <h2>Ma'lumotlar Tuzilmalari</h2>
+            <div class="structure-list">
+                <div class="structure-item active" data-structure="array">
+                    <i class="fas fa-layer-group"></i>
+                    <span>Massivlar</span>
+                </div>
+                <div class="structure-item" data-structure="linkedList">
+                    <i class="fas fa-link"></i>
+                    <span>Bog'langan Ro'yxatlar</span>
+                </div>
+                <div class="structure-item" data-structure="stack">
+                    <i class="fas fa-boxes-stacked"></i>
+                    <span>Stack</span>
+                </div>
+                <div class="structure-item" data-structure="queue">
+                    <i class="fas fa-people-line"></i>
+                    <span>Queue</span>
+                </div>
+                <div class="structure-item" data-structure="tree">
+                    <i class="fas fa-tree"></i>
+                    <span>Daraxtlar</span>
+                </div>
+                <div class="structure-item" data-structure="graph">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>Graflar</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- O'rta panel - Vizualizatsiya -->
+        <div class="visualization-panel">
+            <div class="visualization-header">
+                <h2>Vizualizatsiya</h2>
+                <div class="visualization-controls">
+                    <button class="control-btn" id="resetBtn" onclick="resetVisualization()">
+                        <i class="fas fa-sync"></i>
+                        Yangilash
+                    </button>
+                    <button class="control-btn" id="playBtn" onclick="togglePlayPause()">
+                        <i class="fas fa-play"></i>
+                        Boshlash
+                    </button>
+                    <div class="speed-control">
+                        <label>Tezlik:</label>
+                        <input type="range" id="speedSlider" min="1" max="5" value="3" oninput="updateSpeed(this.value)">
+                    </div>
+                </div>
+            </div>
+            <div class="visualization-content">
+                <!-- Array Structure -->
+                <div class="structure-visualization active" id="arrayVisualization">
+                    <div class="array-container">
+                        <div class="array-elements" id="arrayElements"></div>
+                        <div class="array-index" id="arrayIndex"></div>
+                    </div>
+                </div>
+
+                <!-- Linked List Structure -->
+                <div class="structure-visualization" id="linkedListVisualization">
+                    <div class="linkedlist-container" id="linkedListContainer"></div>
+                </div>
+
+                <!-- Stack Structure -->
+                <div class="structure-visualization" id="stackVisualization">
+                    <div class="stack-container" id="stackContainer"></div>
+                </div>
+
+                <!-- Queue Structure -->
+                <div class="structure-visualization" id="queueVisualization">
+                    <div class="queue-container" id="queueContainer"></div>
+                </div>
+
+                <!-- Tree Structure -->
+                <div class="structure-visualization" id="treeVisualization">
+                    <div class="tree-container" id="treeContainer"></div>
+                </div>
+
+                <!-- Graph Structure -->
+                <div class="structure-visualization" id="graphVisualization">
+                    <div class="graph-container" id="graphContainer"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- O'ng panel - Boshqaruv va ma'lumot -->
+        <div class="control-panel">
+            <div class="operation-section">
+                <h3>Operatsiyalar</h3>
+                <div class="operation-buttons">
+                    <!-- Array Operations -->
+                    <div class="structure-operations active" data-structure="array">
+                        <button class="operation-btn" onclick="arrayAdd()">
+                            <i class="fas fa-plus"></i> Element qo'shish
+                        </button>
+                        <button class="operation-btn" onclick="arrayRemove()">
+                            <i class="fas fa-minus"></i> Element o'chirish
+                        </button>
+                        <button class="operation-btn" onclick="arraySearch()">
+                            <i class="fas fa-search"></i> Qidirish
+                        </button>
+                        <button class="operation-btn" onclick="arraySort()">
+                            <i class="fas fa-sort"></i> Saralash
+                        </button>
+                    </div>
+
+                    <!-- Linked List Operations -->
+                    <div class="structure-operations" data-structure="linkedList">
+                        <button class="operation-btn" onclick="listAddFront()">
+                            <i class="fas fa-plus"></i> Boshiga qo'shish
+                        </button>
+                        <button class="operation-btn" onclick="listAddBack()">
+                            <i class="fas fa-plus"></i> Oxiriga qo'shish
+                        </button>
+                        <button class="operation-btn" onclick="listRemove()">
+                            <i class="fas fa-minus"></i> O'chirish
+                        </button>
+                    </div>
+
+                    <!-- Stack Operations -->
+                    <div class="structure-operations" data-structure="stack">
+                        <button class="operation-btn" onclick="stackPush()">
+                            <i class="fas fa-arrow-down"></i> Push
+                        </button>
+                        <button class="operation-btn" onclick="stackPop()">
+                            <i class="fas fa-arrow-up"></i> Pop
+                        </button>
+                        <button class="operation-btn" onclick="stackPeek()">
+                            <i class="fas fa-eye"></i> Peek
+                        </button>
+                    </div>
+
+                    <!-- Queue Operations -->
+                    <div class="structure-operations" data-structure="queue">
+                        <button class="operation-btn" onclick="queueEnqueue()">
+                            <i class="fas fa-arrow-right"></i> Enqueue
+                        </button>
+                        <button class="operation-btn" onclick="queueDequeue()">
+                            <i class="fas fa-arrow-left"></i> Dequeue
+                        </button>
+                        <button class="operation-btn" onclick="queuePeek()">
+                            <i class="fas fa-eye"></i> Peek
+                        </button>
+                    </div>
+
+                    <!-- Tree Operations -->
+                    <div class="structure-operations" data-structure="tree">
+                        <button class="operation-btn" onclick="treeAdd()">
+                            <i class="fas fa-plus"></i> Tugun qo'shish
+                        </button>
+                        <button class="operation-btn" onclick="treeRemove()">
+                            <i class="fas fa-minus"></i> Tugun o'chirish
+                        </button>
+                        <button class="operation-btn" onclick="treeTraverse('inorder')">
+                            <i class="fas fa-project-diagram"></i> In-order
+                        </button>
+                        <button class="operation-btn" onclick="treeTraverse('preorder')">
+                            <i class="fas fa-project-diagram"></i> Pre-order
+                        </button>
+                        <button class="operation-btn" onclick="treeTraverse('postorder')">
+                            <i class="fas fa-project-diagram"></i> Post-order
+                        </button>
+                    </div>
+
+                    <!-- Graph Operations -->
+                    <div class="structure-operations" data-structure="graph">
+                        <button class="operation-btn" onclick="graphAddVertex()">
+                            <i class="fas fa-plus"></i> Vertex qo'shish
+                        </button>
+                        <button class="operation-btn" onclick="selectedVertex = null; updateGraphVisualization();">
+                            <i class="fas fa-link"></i> Qirra qo'shish (vertex tanlang)
+                        </button>
+                        <button class="operation-btn" onclick="graphBFS()">
+                            <i class="fas fa-project-diagram"></i> BFS
+                        </button>
+                        <button class="operation-btn" onclick="graphDFS()">
+                            <i class="fas fa-project-diagram"></i> DFS
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h3>Ma'lumot</h3>
+                <div class="structure-info">
+                    <!-- Array Info -->
+                    <div class="info-content active" data-structure="array">
+                        <h4>Massiv (Array)</h4>
+                        <p>Massiv - bu bir xil turdagi elementlarning ketma-ket joylashuvi. Har bir element indeks orqali murojaat qilinadi.</p>
+                        <div class="complexity-info">
+                            <h5>Operatsiyalar:</h5>
+                            <ul>
+                                <li><strong>Element qo'shish</strong> - Massiv oxiriga yangi element qo'shish</li>
+                                <li><strong>Element o'chirish</strong> - Massiv oxiridagi elementni o'chirish</li>
+                                <li><strong>Qidirish</strong> - Berilgan elementni massiv bo'ylab izlash</li>
+                                <li><strong>Saralash</strong> - Elementlarni o'sish tartibida saralash</li>
+                            </ul>
+                            <h5>Murakkablik:</h5>
+                            <ul>
+                                <li>Qidirish: O(n)</li>
+                                <li>Qo'shish: O(1)</li>
+                                <li>O'chirish: O(1)</li>
+                                <li>Saralash: O(n²)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Linked List Info -->
+                    <div class="info-content" data-structure="linkedList">
+                        <h4>Bog'langan Ro'yxat (Linked List)</h4>
+                        <p>Bog'langan ro'yxat - elementlar ketma-ketligi bo'lib, har bir element keyingi elementga ishora saqlaydi.</p>
+                        <div class="complexity-info">
+                            <h5>Operatsiyalar:</h5>
+                            <ul>
+                                <li><strong>Boshiga qo'shish</strong> - Ro'yxat boshiga yangi element qo'shish</li>
+                                <li><strong>Oxiriga qo'shish</strong> - Ro'yxat oxiriga yangi element qo'shish</li>
+                                <li><strong>O'chirish</strong> - Ro'yxatdan element o'chirish</li>
+                            </ul>
+                            <h5>Murakkablik:</h5>
+                            <ul>
+                                <li>Boshiga qo'shish: O(1)</li>
+                                <li>Oxiriga qo'shish: O(n)</li>
+                                <li>O'chirish: O(n)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Stack Info -->
+                    <div class="info-content" data-structure="stack">
+                        <h4>Stack (LIFO)</h4>
+                        <p>Stack - Last In First Out (LIFO) prinsipi asosida ishlaydigan ma'lumotlar tuzilmasi.</p>
+                        <div class="complexity-info">
+                            <h5>Operatsiyalar:</h5>
+                            <ul>
+                                <li><strong>Push</strong> - Stack tepasiga element qo'shish</li>
+                                <li><strong>Pop</strong> - Stack tepasidan element olish</li>
+                                <li><strong>Peek</strong> - Stack tepasidagi elementni ko'rish</li>
+                            </ul>
+                            <h5>Murakkablik:</h5>
+                            <ul>
+                                <li>Push: O(1)</li>
+                                <li>Pop: O(1)</li>
+                                <li>Peek: O(1)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Queue Info -->
+                    <div class="info-content" data-structure="queue">
+                        <h4>Queue (FIFO)</h4>
+                        <p>Queue - First In First Out (FIFO) prinsipi asosida ishlaydigan ma'lumotlar tuzilmasi.</p>
+                        <div class="complexity-info">
+                            <h5>Operatsiyalar:</h5>
+                            <ul>
+                                <li><strong>Enqueue</strong> - Navbat oxiriga element qo'shish</li>
+                                <li><strong>Dequeue</strong> - Navbat boshidan element olish</li>
+                                <li><strong>Peek</strong> - Navbat boshidagi elementni ko'rish</li>
+                            </ul>
+                            <h5>Murakkablik:</h5>
+                            <ul>
+                                <li>Enqueue: O(1)</li>
+                                <li>Dequeue: O(1)</li>
+                                <li>Peek: O(1)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Tree Info -->
+                    <div class="info-content" data-structure="tree">
+                        <h4>Daraxt (Binary Tree)</h4>
+                        <p>Daraxt - ierarxik ma'lumotlar tuzilmasi bo'lib, har bir tugun maksimum ikkita bolaga ega bo'lishi mumkin.</p>
+                        <div class="complexity-info">
+                            <h5>Operatsiyalar:</h5>
+                            <ul>
+                                <li><strong>Tugun qo'shish</strong> - Daraxtga yangi tugun qo'shish</li>
+                                <li><strong>Tugun o'chirish</strong> - Daraxtdan tugun o'chirish</li>
+                                <li><strong>In-order</strong> - Chap -> O'zi -> O'ng tartibda aylanib chiqish</li>
+                                <li><strong>Pre-order</strong> - O'zi -> Chap -> O'ng tartibda aylanib chiqish</li>
+                                <li><strong>Post-order</strong> - Chap -> O'ng -> O'zi tartibda aylanib chiqish</li>
+                            </ul>
+                            <h5>Murakkablik:</h5>
+                            <ul>
+                                <li>Qo'shish: O(log n)</li>
+                                <li>O'chirish: O(log n)</li>
+                                <li>Aylanib chiqish: O(n)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Graph Info -->
+                    <div class="info-content" data-structure="graph">
+                        <h4>Graf (Graph)</h4>
+                        <p>Graf - vertexlar va ularni bog'lovchi qirralardan iborat ma'lumotlar tuzilmasi.</p>
+                        <div class="complexity-info">
+                            <h5>Operatsiyalar:</h5>
+                            <ul>
+                                <li><strong>Vertex qo'shish</strong> - Grafga yangi vertex qo'shish</li>
+                                <li><strong>Qirra qo'shish</strong> - Ikki vertex orasida qirra yaratish (ikki vertexni ketma-ket tanlang)</li>
+                                <li><strong>BFS</strong> - Kenglikka ko'ra izlash - vertexlarni qatlam-qatlam aylanib chiqish</li>
+                                <li><strong>DFS</strong> - Chuqurlikka ko'ra izlash - har bir yo'nalishni oxirigacha borish</li>
+                            </ul>
+                            <h5>Murakkablik:</h5>
+                            <ul>
+                                <li>Vertex qo'shish: O(1)</li>
+                                <li>Qirra qo'shish: O(1)</li>
+                                <li>BFS: O(V + E)</li>
+                                <li>DFS: O(V + E)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/laboratory2.js"></script>
+</body>
+</html>

@@ -1,0 +1,539 @@
+/* Asosiy konteyner */
+.lab-container {
+    display: grid;
+    grid-template-columns: 250px 1fr 300px;
+    gap: 1rem;
+    padding: 1rem;
+    height: calc(100vh - 60px);
+    background: #1a1a1a;
+}
+
+/* Chap panel - Tuzilmalar ro'yxati */
+.structures-panel {
+    background: #2a2a2a;
+    border-radius: 10px;
+    padding: 1rem;
+    color: #fff;
+}
+
+.structures-panel h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+    color: #4CAF50;
+    text-align: center;
+}
+
+.structure-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.structure-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #333;
+}
+
+.structure-item:hover {
+    background: #404040;
+    transform: translateX(5px);
+}
+
+.structure-item.active {
+    background: #4CAF50;
+}
+
+.structure-item i {
+    font-size: 1.2rem;
+}
+
+/* O'rta panel - Vizualizatsiya */
+.visualization-panel {
+    background: #2a2a2a;
+    border-radius: 10px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.visualization-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #404040;
+}
+
+.visualization-header h2 {
+    color: #4CAF50;
+    font-size: 1.2rem;
+}
+
+.visualization-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.control-btn {
+    background: #404040;
+    border: none;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.control-btn:hover {
+    background: #4CAF50;
+}
+
+.speed-control {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #fff;
+}
+
+.speed-control input[type="range"] {
+    width: 100px;
+}
+
+.visualization-content {
+    flex: 1;
+    background: #333;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Struktura vizualizatsiyalari */
+.structure-visualization {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    padding: 1rem;
+}
+
+.structure-visualization.active {
+    display: block;
+}
+
+/* Array vizualizatsiyasi */
+.array-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 2rem;
+}
+
+.array-elements {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.array-element {
+    width: 50px;
+    height: 50px;
+    background: #4CAF50;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.array-element.highlight {
+    background: #2196F3;
+    transform: scale(1.1);
+}
+
+.array-index {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.array-index-item {
+    width: 50px;
+    text-align: center;
+    color: #888;
+}
+
+/* O'ng panel - Boshqaruv va ma'lumot */
+.control-panel {
+    background: #2a2a2a;
+    border-radius: 10px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    color: #fff;
+}
+
+.operation-section, .info-section {
+    background: #333;
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.operation-section h3, .info-section h3 {
+    color: #4CAF50;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.operation-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.structure-operations {
+    display: none;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.structure-operations.active {
+    display: flex;
+}
+
+.operation-btn {
+    background: #404040;
+    border: none;
+    color: #fff;
+    padding: 0.8rem;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.operation-btn:hover {
+    background: #4CAF50;
+}
+
+.info-content {
+    display: none;
+}
+
+.info-content.active {
+    display: block;
+}
+
+.info-content h4 {
+    color: #4CAF50;
+    margin-bottom: 0.5rem;
+}
+
+.info-content p {
+    color: #bbb;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.complexity-info h5 {
+    color: #2196F3;
+    margin-bottom: 0.5rem;
+}
+
+.complexity-info ul {
+    list-style: none;
+    padding: 0;
+}
+
+.complexity-info li {
+    color: #bbb;
+    margin-bottom: 0.3rem;
+}
+
+/* Linked List vizualizatsiyasi */
+.linkedlist-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    height: 100%;
+}
+
+.node {
+    display: flex;
+    align-items: center;
+}
+
+.node-content {
+    width: 50px;
+    height: 50px;
+    background: #4CAF50;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: bold;
+}
+
+.node-arrow {
+    width: 30px;
+    height: 2px;
+    background: #666;
+    margin: 0 5px;
+    position: relative;
+}
+
+.node-arrow::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: -4px;
+    border: 5px solid transparent;
+    border-left-color: #666;
+}
+
+/* Stack vizualizatsiyasi */
+.stack-container {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    padding: 2rem;
+    height: 100%;
+    gap: 0.5rem;
+}
+
+.stack-element {
+    width: 200px;
+    height: 40px;
+    background: #4CAF50;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+/* Queue vizualizatsiyasi */
+.queue-container {
+    display: flex;
+    align-items: center;
+    padding: 2rem;
+    height: 100%;
+    gap: 0.5rem;
+}
+
+.queue-element {
+    width: 50px;
+    height: 50px;
+    background: #4CAF50;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+/* Tree vizualizatsiyasi */
+.tree-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 2rem;
+}
+
+.tree-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.tree-level {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.tree-element {
+    width: 50px;
+    height: 50px;
+    background: #4CAF50;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: bold;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.tree-connection {
+    position: absolute;
+    width: 2px;
+    background: #666;
+    transform-origin: top;
+    z-index: -1;
+}
+
+/* Graph vizualizatsiyasi */
+.graph-container {
+    position: relative;
+    height: 100%;
+    padding: 2rem;
+}
+
+.graph-vertex {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: #4CAF50;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.graph-vertex.selected {
+    background: #2196F3;
+    transform: scale(1.1);
+}
+
+.graph-edge {
+    position: absolute;
+    height: 2px;
+    background: #666;
+    transform-origin: left;
+    z-index: -1;
+}
+
+.graph-edge.highlighted {
+    background: #2196F3;
+    height: 3px;
+}
+
+/* Animatsiyalar */
+@keyframes highlight {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.highlight {
+    animation: highlight 0.5s ease;
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease;
+}
+
+/* Mobil moslashuv uchun */
+@media screen and (max-width: 768px) {
+    .lab-container {
+        flex-direction: column;
+        padding: 10px;
+        margin-top: 60px;
+    }
+
+    .structures-panel {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .visualization-panel {
+        width: 100%;
+        min-height: 400px;
+        margin-bottom: 20px;
+    }
+
+    .visualization-content {
+        min-height: 300px;
+        width: 100%;
+        overflow: auto;
+    }
+
+    .visualization-controls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .control-btn {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    .speed-control {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    /* Array elementlari uchun */
+    .array-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .array-element {
+        width: 80%;
+        max-width: 200px;
+        margin: 5px 0;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .lab-container {
+        margin-top: 80px;
+    }
+
+    .visualization-content {
+        min-height: 250px;
+        padding: 10px;
+    }
+
+    .array-element {
+        width: 90%;
+        height: 40px;
+        font-size: 16px;
+    }
+
+    .control-btn {
+        padding: 8px;
+        font-size: 14px;
+    }
+}

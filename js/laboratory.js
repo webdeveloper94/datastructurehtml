@@ -6,385 +6,402 @@ const graphCanvas = document.getElementById('graphCanvas');
 const sortingCanvas = document.getElementById('sortingCanvas');
 const searchCanvas = document.getElementById('searchCanvas');
 
-// Three.js scenes, cameras va rendererlarni yaratish
-function createScene(canvas) {
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
-    
-    renderer.setSize(canvas.clientWidth, canvas.clientHeight);
-    renderer.setClearColor(0x000000, 0);
-    
-    // Asosiy yorug'lik
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-    scene.add(ambientLight);
-    
-    // Yo'naltirilgan yorug'lik
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-    directionalLight.position.set(5, 5, 5);
-    scene.add(directionalLight);
-    
-    return { scene, camera, renderer };
-}
+// Global o'zgaruvchilar va Three.js obyektlari
+let scenes = {};
+let animationSpeed = 1;
+let animationFrameIds = {};
 
-// Massiv animatsiyasi
-function startArrayAnimation() {
-    const { scene, camera, renderer } = createScene(arrayCanvas);
-    camera.position.z = 5;
-    
-    // Massiv elementlarini yaratish
-    const elements = [];
-    const geometry = new THREE.BoxGeometry(0.8, 0.8, 0.8);
-    const materials = [
-        new THREE.MeshPhongMaterial({ color: 0x4CAF50 }),
-        new THREE.MeshPhongMaterial({ color: 0x2196F3 }),
-        new THREE.MeshPhongMaterial({ color: 0xF44336 })
-    ];
-    
-    // Massiv elementlarini joylashtirish
-    for(let i = 0; i < 5; i++) {
-        const cube = new THREE.Mesh(geometry, materials[i % 3]);
-        cube.position.x = i * 1.2 - 2;
-        elements.push(cube);
-        scene.add(cube);
-    }
-    
-    // Animatsiya
-    function animate() {
-        requestAnimationFrame(animate);
+// Geometriya va materiallar
+const cubeGeometry = new THREE.BoxGeometry(0.8, 0.8, 0.8);
+const sphereGeometry = new THREE.SphereGeometry(0.4, 32, 32);
+const cylinderGeometry = new THREE.CylinderGeometry(0.05, 0.05, 2, 32);
+const defaultMaterial = new THREE.MeshPhongMaterial({ color: 0x4CAF50 });
+const highlightMaterial = new THREE.MeshPhongMaterial({ color: 0x2196F3 });
+const searchMaterial = new THREE.MeshPhongMaterial({ color: 0xF44336 });
+
+// Sahifa yuklanganda barcha scenalarni yaratish
+window.addEventListener('load', () => {
+    console.log('Page loaded, initializing scenes...');
+    try {
+        initializeScenes();
+        startAllAnimations();
         
-        elements.forEach((cube, index) => {
-            cube.rotation.x += 0.01;
-            cube.rotation.y += 0.01;
+        // Tezlik sliderlarini sozlash
+        document.querySelectorAll('.speed-slider').forEach(slider => {
+            slider.addEventListener('input', (e) => {
+                animationSpeed = parseFloat(e.target.value);
+            });
+        });
+    } catch (error) {
+        console.error('Initialization error:', error);
+    }
+});
+
+// Barcha scenalarni yaratish
+function initializeScenes() {
+    const canvasTypes = ['array', 'linkedList', 'tree', 'graph', 'sorting', 'search'];
+    
+    canvasTypes.forEach(type => {
+        const canvas = document.getElementById(`${type}Canvas`);
+        if (!canvas) {
+            console.error(`Canvas not found for type: ${type}`);
+            return;
+        }
+        
+        try {
+            console.log(`Initializing scene for: ${type}`);
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ 
+                canvas: canvas, 
+                alpha: true, 
+                antialias: true 
+            });
             
-            // Yuqoriga va pastga harakat
-            cube.position.y = Math.sin(Date.now() * 0.001 + index) * 0.2;
-        });
-        
-        renderer.render(scene, camera);
-    }
-    
-    animate();
-}
-
-// Bog'langan ro'yxat animatsiyasi
-function startLinkedListAnimation() {
-    const { scene, camera, renderer } = createScene(linkedListCanvas);
-    camera.position.z = 8;
-    
-    // Tugunlarni yaratish
-    const nodes = [];
-    const nodeGeometry = new THREE.SphereGeometry(0.5, 32, 32);
-    const nodeMaterial = new THREE.MeshPhongMaterial({ color: 0x4CAF50 });
-    
-    // Bog'lovchi chiziqlar
-    const linkGeometry = new THREE.CylinderGeometry(0.05, 0.05, 2, 32);
-    const linkMaterial = new THREE.MeshPhongMaterial({ color: 0xFFFFFF });
-    
-    // Tugunlarni va bog'lovchilarni joylashtirish
-    for(let i = 0; i < 4; i++) {
-        const node = new THREE.Mesh(nodeGeometry, nodeMaterial);
-        node.position.x = i * 3 - 4;
-        nodes.push(node);
-        scene.add(node);
-        
-        if(i < 3) {
-            const link = new THREE.Mesh(linkGeometry, linkMaterial);
-            link.position.x = i * 3 - 2.5;
-            link.rotation.z = Math.PI / 2;
-            scene.add(link);
-        }
-    }
-    
-    // Animatsiya
-    function animate() {
-        requestAnimationFrame(animate);
-        
-        nodes.forEach((node, index) => {
-            node.position.y = Math.sin(Date.now() * 0.001 + index) * 0.3;
-            node.rotation.y += 0.01;
-        });
-        
-        renderer.render(scene, camera);
-    }
-    
-    animate();
-}
-
-// Daraxt animatsiyasi
-function startTreeAnimation() {
-    const { scene, camera, renderer } = createScene(treeCanvas);
-    camera.position.z = 10;
-    camera.position.y = 2;
-    
-    // Daraxt tugunlarini yaratish
-    const nodes = [];
-    const nodeGeometry = new THREE.SphereGeometry(0.4, 32, 32);
-    const nodeMaterial = new THREE.MeshPhongMaterial({ color: 0x4CAF50 });
-    
-    // Daraxt strukturasini yaratish
-    const treeStructure = [
-        { x: 0, y: 3, connections: [1, 2] },
-        { x: -2, y: 1.5, connections: [3, 4] },
-        { x: 2, y: 1.5, connections: [5, 6] },
-        { x: -3, y: 0, connections: [] },
-        { x: -1, y: 0, connections: [] },
-        { x: 1, y: 0, connections: [] },
-        { x: 3, y: 0, connections: [] }
-    ];
-    
-    // Tugunlarni va chiziqlarni joylashtirish
-    treeStructure.forEach((node, index) => {
-        const sphere = new THREE.Mesh(nodeGeometry, nodeMaterial);
-        sphere.position.set(node.x, node.y, 0);
-        nodes.push(sphere);
-        scene.add(sphere);
-        
-        // Bog'lovchi chiziqlarni yaratish
-        node.connections.forEach(childIndex => {
-            const childNode = treeStructure[childIndex];
-            const lineGeometry = new THREE.BufferGeometry().setFromPoints([
-                new THREE.Vector3(node.x, node.y, 0),
-                new THREE.Vector3(childNode.x, childNode.y, 0)
-            ]);
-            const line = new THREE.Line(
-                lineGeometry,
-                new THREE.LineBasicMaterial({ color: 0xFFFFFF })
-            );
-            scene.add(line);
-        });
-    });
-    
-    // Animatsiya
-    function animate() {
-        requestAnimationFrame(animate);
-        
-        nodes.forEach((node, index) => {
-            node.rotation.y += 0.01;
-            node.position.z = Math.sin(Date.now() * 0.001 + index) * 0.2;
-        });
-        
-        renderer.render(scene, camera);
-    }
-    
-    animate();
-}
-
-// Graf animatsiyasi
-function startGraphAnimation() {
-    const { scene, camera, renderer } = createScene(graphCanvas);
-    camera.position.z = 10;
-    
-    // Graf tugunlarini yaratish
-    const nodes = [];
-    const nodeGeometry = new THREE.SphereGeometry(0.4, 32, 32);
-    const nodeMaterial = new THREE.MeshPhongMaterial({ color: 0x4CAF50 });
-    
-    // Graf strukturasini yaratish
-    const graphStructure = [
-        { x: 0, y: 2, connections: [1, 2, 3] },
-        { x: -2, y: 0, connections: [2, 4] },
-        { x: 0, y: 0, connections: [3] },
-        { x: 2, y: 0, connections: [4] },
-        { x: 0, y: -2, connections: [] }
-    ];
-    
-    // Tugunlarni va chiziqlarni joylashtirish
-    graphStructure.forEach((node, index) => {
-        const sphere = new THREE.Mesh(nodeGeometry, nodeMaterial);
-        sphere.position.set(node.x, node.y, 0);
-        nodes.push(sphere);
-        scene.add(sphere);
-        
-        // Qirralarni yaratish
-        node.connections.forEach(childIndex => {
-            const childNode = graphStructure[childIndex];
-            const lineGeometry = new THREE.BufferGeometry().setFromPoints([
-                new THREE.Vector3(node.x, node.y, 0),
-                new THREE.Vector3(childNode.x, childNode.y, 0)
-            ]);
-            const line = new THREE.Line(
-                lineGeometry,
-                new THREE.LineBasicMaterial({ color: 0xFFFFFF })
-            );
-            scene.add(line);
-        });
-    });
-    
-    // Animatsiya
-    function animate() {
-        requestAnimationFrame(animate);
-        
-        nodes.forEach((node, index) => {
-            node.rotation.y += 0.01;
-            node.position.z = Math.sin(Date.now() * 0.001 + index) * 0.2;
-        });
-        
-        camera.rotation.y = Math.sin(Date.now() * 0.0005) * 0.1;
-        
-        renderer.render(scene, camera);
-    }
-    
-    animate();
-}
-
-// Saralash animatsiyasi
-function startSortingAnimation() {
-    const { scene, camera, renderer } = createScene(sortingCanvas);
-    camera.position.z = 10;
-    
-    // Ustunlarni yaratish
-    const bars = [];
-    const values = [7, 3, 5, 2, 6, 1, 4];
-    const barGeometry = new THREE.BoxGeometry(0.8, 1, 0.8);
-    const barMaterial = new THREE.MeshPhongMaterial({ color: 0x4CAF50 });
-    
-    values.forEach((value, index) => {
-        const bar = new THREE.Mesh(barGeometry, barMaterial);
-        bar.scale.y = value;
-        bar.position.x = index * 1.2 - 3;
-        bar.position.y = value / 2 - 2;
-        bars.push(bar);
-        scene.add(bar);
-    });
-    
-    // Bubble sort animatsiyasi
-    let step = 0;
-    let i = 0;
-    
-    function animate() {
-        requestAnimationFrame(animate);
-        
-        step++;
-        
-        if(step % 60 === 0) { // Har sekundda bir marta
-            if(i < values.length - 1) {
-                if(values[i] > values[i + 1]) {
-                    // Qiymatlarni almashtirish
-                    [values[i], values[i + 1]] = [values[i + 1], values[i]];
-                    
-                    // Ustunlarni almashtirish animatsiyasi
-                    gsap.to(bars[i].position, {
-                        x: bars[i + 1].position.x,
-                        duration: 0.5
-                    });
-                    gsap.to(bars[i + 1].position, {
-                        x: bars[i].position.x,
-                        duration: 0.5
-                    });
-                    
-                    [bars[i], bars[i + 1]] = [bars[i + 1], bars[i]];
-                }
-                i++;
-                if(i >= values.length - 1) {
-                    i = 0;
-                }
-            }
-        }
-        
-        bars.forEach(bar => {
-            bar.rotation.y = Math.sin(Date.now() * 0.001) * 0.1;
-        });
-        
-        renderer.render(scene, camera);
-    }
-    
-    animate();
-}
-
-// Qidirish animatsiyasi
-function startSearchAnimation() {
-    const { scene, camera, renderer } = createScene(searchCanvas);
-    camera.position.z = 10;
-    
-    // Elementlarni yaratish
-    const elements = [];
-    const values = [1, 3, 4, 6, 7, 8, 9];
-    const targetValue = 6;
-    
-    const geometry = new THREE.BoxGeometry(0.8, 0.8, 0.8);
-    const normalMaterial = new THREE.MeshPhongMaterial({ color: 0x4CAF50 });
-    const searchMaterial = new THREE.MeshPhongMaterial({ color: 0xF44336 });
-    const targetMaterial = new THREE.MeshPhongMaterial({ color: 0x2196F3 });
-    
-    values.forEach((value, index) => {
-        const element = new THREE.Mesh(geometry, 
-            value === targetValue ? targetMaterial : normalMaterial);
-        element.position.x = index * 1.2 - 3;
-        elements.push(element);
-        scene.add(element);
-    });
-    
-    // Binary search animatsiyasi
-    let left = 0;
-    let right = values.length - 1;
-    let mid = Math.floor((left + right) / 2);
-    let step = 0;
-    
-    function animate() {
-        requestAnimationFrame(animate);
-        
-        step++;
-        
-        if(step % 120 === 0) { // Har 2 sekundda
-            // Oldingi qidiruv elementini normal rangga qaytarish
-            if(mid >= 0 && mid < elements.length) {
-                elements[mid].material = values[mid] === targetValue ? 
-                    targetMaterial : normalMaterial;
-            }
+            // Canvas o'lchamlarini to'g'rilash
+            const width = canvas.clientWidth;
+            const height = canvas.clientHeight;
+            renderer.setSize(width, height, false);
+            renderer.setClearColor(0x000000, 0);
             
-            if(left <= right) {
-                mid = Math.floor((left + right) / 2);
-                
-                // Yangi qidiruv elementini belgilash
-                elements[mid].material = searchMaterial;
-                
-                if(values[mid] === targetValue) {
-                    // Topildi
-                    elements[mid].material = targetMaterial;
-                    gsap.to(elements[mid].scale, {
-                        x: 1.5,
-                        y: 1.5,
-                        z: 1.5,
-                        duration: 0.5,
-                        yoyo: true,
-                        repeat: -1
-                    });
-                } else if(values[mid] < targetValue) {
-                    left = mid + 1;
-                } else {
-                    right = mid - 1;
-                }
-            }
+            // Chiroqlarni qo'shish
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+            scene.add(ambientLight);
+            
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            directionalLight.position.set(5, 5, 5);
+            scene.add(directionalLight);
+            
+            camera.position.z = 5;
+            
+            scenes[type] = {
+                scene,
+                camera,
+                renderer,
+                elements: []
+            };
+            
+            // Test element qo'shish
+            addTestElement(type);
+            
+        } catch (error) {
+            console.error(`Error initializing ${type} scene:`, error);
         }
-        
-        elements.forEach((element, index) => {
-            element.rotation.x += 0.01;
-            element.rotation.y += 0.01;
-            element.position.y = Math.sin(Date.now() * 0.001 + index) * 0.2;
-        });
-        
-        renderer.render(scene, camera);
+    });
+}
+
+// Test element qo'shish
+function addTestElement(type) {
+    const { scene, elements } = scenes[type];
+    let mesh;
+    
+    switch(type) {
+        case 'array':
+            mesh = new THREE.Mesh(cubeGeometry, defaultMaterial.clone());
+            mesh.position.set(0, 0, 0);
+            break;
+        case 'linkedList':
+        case 'tree':
+        case 'graph':
+        case 'sorting':
+        case 'search':
+            mesh = new THREE.Mesh(sphereGeometry, defaultMaterial.clone());
+            mesh.position.set(0, 0, 0);
+            break;
     }
     
-    animate();
+    if (mesh) {
+        scene.add(mesh);
+        elements.push({ mesh, value: 1 });
+    }
+}
+
+// Animatsiyalarni boshlash
+function startAllAnimations() {
+    console.log('Starting all animations...');
+    for (let type in scenes) {
+        if (scenes[type]) {
+            try {
+                if (animationFrameIds[type]) {
+                    cancelAnimationFrame(animationFrameIds[type]);
+                }
+                animate(type);
+            } catch (error) {
+                console.error(`Error starting animation for ${type}:`, error);
+            }
+        }
+    }
+}
+
+// Animatsiya funksiyasi
+function animate(type) {
+    if (!scenes[type]) return;
+    
+    const { scene, camera, renderer, elements } = scenes[type];
+    
+    function animateScene() {
+        try {
+            animationFrameIds[type] = requestAnimationFrame(() => animateScene());
+            
+            // Har bir elementni aylantiramiz
+            elements.forEach(element => {
+                if (element.mesh) {
+                    element.mesh.rotation.y += 0.01 * animationSpeed;
+                }
+            });
+            
+            renderer.render(scene, camera);
+        } catch (error) {
+            console.error(`Animation error in ${type}:`, error);
+            cancelAnimationFrame(animationFrameIds[type]);
+        }
+    }
+    
+    animateScene();
+}
+
+// Scenani tozalash
+function clearScene(type) {
+    if (!scenes[type]) return;
+    
+    const { scene, elements } = scenes[type];
+    
+    elements.forEach(element => {
+        if (element.mesh) {
+            scene.remove(element.mesh);
+        }
+    });
+    
+    elements.length = 0;
+    addTestElement(type);
 }
 
 // Oyna o'lchamini o'zgartirish hodisasi
 window.addEventListener('resize', () => {
-    const canvases = [
-        arrayCanvas, linkedListCanvas, treeCanvas,
-        graphCanvas, sortingCanvas, searchCanvas
-    ];
+    console.log('Window resized, updating scenes...');
+    for (let type in scenes) {
+        if (scenes[type]) {
+            try {
+                const { camera, renderer } = scenes[type];
+                const canvas = renderer.domElement;
+                const width = canvas.clientWidth;
+                const height = canvas.clientHeight;
+                
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+                renderer.setSize(width, height, false);
+            } catch (error) {
+                console.error(`Error handling resize for ${type}:`, error);
+            }
+        }
+    }
+});
+
+// Massiv funksiyalari
+function addElement() {
+    const { scene, elements } = scenes.array;
+    const cube = new THREE.Mesh(cubeGeometry, defaultMaterial.clone());
+    const x = elements.length * 1.2 - (elements.length * 1.2) / 2;
+    cube.position.set(x, 0, 0);
+    scene.add(cube);
+    elements.push({ mesh: cube, value: elements.length + 1 });
+}
+
+function removeElement() {
+    const { scene, elements } = scenes.array;
+    if (elements.length > 0) {
+        const element = elements.pop();
+        scene.remove(element.mesh);
+    }
+}
+
+// Linked List funksiyalari
+function addNode() {
+    const { scene, elements } = scenes.linkedList;
+    const sphere = new THREE.Mesh(sphereGeometry, defaultMaterial.clone());
+    const x = elements.length * 1.5 - (elements.length * 1.5) / 2;
+    sphere.position.set(x, 0, 0);
+    scene.add(sphere);
+    elements.push({ mesh: sphere, value: elements.length + 1 });
+}
+
+function removeNode() {
+    const { scene, elements } = scenes.linkedList;
+    if (elements.length > 0) {
+        const element = elements.pop();
+        scene.remove(element.mesh);
+    }
+}
+
+// Tree funksiyalari
+function addTreeNode() {
+    const { scene, elements } = scenes.tree;
+    const sphere = new THREE.Mesh(sphereGeometry, defaultMaterial.clone());
+    sphere.position.set(0, elements.length * -1.5, 0);
+    scene.add(sphere);
+    elements.push({ mesh: sphere, value: elements.length + 1 });
+}
+
+// Graph funksiyalari
+function addVertex() {
+    const { scene, elements } = scenes.graph;
+    const sphere = new THREE.Mesh(sphereGeometry, defaultMaterial.clone());
+    const angle = elements.length * (Math.PI * 2 / 8);
+    const radius = 2;
+    sphere.position.set(
+        radius * Math.cos(angle),
+        radius * Math.sin(angle),
+        0
+    );
+    scene.add(sphere);
+    elements.push({ mesh: sphere, value: elements.length + 1 });
+}
+
+function addEdge() {
+    const { scene, elements } = scenes.graph;
+    if (elements.length < 2) return;
     
-    canvases.forEach(canvas => {
-        if(canvas.renderer) {
-            const camera = canvas.camera;
-            const renderer = canvas.renderer;
-            
-            camera.aspect = canvas.clientWidth / canvas.clientHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+    const v1 = Math.floor(Math.random() * elements.length);
+    let v2;
+    do {
+        v2 = Math.floor(Math.random() * elements.length);
+    } while (v2 === v1);
+    
+    const start = elements[v1].mesh.position;
+    const end = elements[v2].mesh.position;
+    
+    const direction = new THREE.Vector3().subVectors(end, start);
+    const length = direction.length();
+    
+    const edge = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.03, 0.03, length, 8),
+        new THREE.MeshPhongMaterial({ color: 0x888888 })
+    );
+    
+    const center = new THREE.Vector3().addVectors(start, end).multiplyScalar(0.5);
+    edge.position.copy(center);
+    
+    const quaternion = new THREE.Quaternion();
+    quaternion.setFromUnitVectors(
+        new THREE.Vector3(0, 1, 0),
+        direction.normalize()
+    );
+    edge.setRotationFromQuaternion(quaternion);
+    
+    scene.add(edge);
+}
+
+// Saralash funksiyalari
+function initSortingArray() {
+    const { scene, elements } = scenes.sorting;
+    clearScene('sorting');
+    
+    const values = Array.from({length: 10}, (_, i) => i + 1);
+    shuffleArray(values);
+    
+    values.forEach((value, index) => {
+        const cube = new THREE.Mesh(cubeGeometry, defaultMaterial.clone());
+        cube.position.x = index * 1.2 - 5;
+        cube.scale.y = value * 0.3;
+        elements.push({ mesh: cube, value });
+        scene.add(cube);
+    });
+}
+
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+function clearScene(type) {
+    if (!scenes[type]) return;
+    
+    const { scene, elements } = scenes[type];
+    
+    elements.forEach(element => {
+        if (element.mesh) {
+            scene.remove(element.mesh);
         }
     });
-});
+    
+    elements.length = 0;
+    addTestElement(type);
+}
+
+async function bubbleSort() {
+    const { elements } = scenes.sorting;
+    const n = elements.length;
+    
+    for (let i = 0; i < n - 1; i++) {
+        for (let j = 0; j < n - i - 1; j++) {
+            await highlightAndCompare(elements[j], elements[j + 1]);
+            if (elements[j].value > elements[j + 1].value) {
+                await swapElements(elements, j, j + 1);
+            }
+        }
+    }
+}
+
+async function highlightAndCompare(el1, el2) {
+    el1.mesh.material.color.setHex(0x2196F3);
+    el2.mesh.material.color.setHex(0x2196F3);
+    await new Promise(resolve => setTimeout(resolve, 500 / animationSpeed));
+    el1.mesh.material.color.setHex(0x4CAF50);
+    el2.mesh.material.color.setHex(0x4CAF50);
+}
+
+async function swapElements(elements, i, j) {
+    const tempX = elements[i].mesh.position.x;
+    elements[i].mesh.position.x = elements[j].mesh.position.x;
+    elements[j].mesh.position.x = tempX;
+    
+    const temp = elements[i];
+    elements[i] = elements[j];
+    elements[j] = temp;
+    
+    await new Promise(resolve => setTimeout(resolve, 500 / animationSpeed));
+}
+
+// Qidirish funksiyalari
+function initSearchArray() {
+    const { scene, elements } = scenes.search;
+    clearScene('search');
+    
+    const values = Array.from({length: 10}, (_, i) => i + 1);
+    
+    values.forEach((value, index) => {
+        const cube = new THREE.Mesh(cubeGeometry, defaultMaterial.clone());
+        cube.position.x = index * 1.2 - 5;
+        elements.push({ mesh: cube, value });
+        scene.add(cube);
+    });
+}
+
+async function binarySearch(searchValue) {
+    const { elements } = scenes.search;
+    let left = 0;
+    let right = elements.length - 1;
+    
+    while (left <= right) {
+        const mid = Math.floor((left + right) / 2);
+        elements[mid].mesh.material.color.setHex(0xF44336);
+        
+        await new Promise(resolve => setTimeout(resolve, 1000 / animationSpeed));
+        
+        if (elements[mid].value === searchValue) {
+            return mid;
+        }
+        
+        elements[mid].mesh.material.color.setHex(0x4CAF50);
+        
+        if (elements[mid].value < searchValue) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+    
+    return -1;
+}
